@@ -449,15 +449,17 @@ if (document.body && isTopOrUsefulFrame()) {
   bottom: 10px!important;\
   right: 10px!important;\
   cursor: pointer!important;\
-  color: rgb(51, 51, 51)!important;\
-  font-family: verdana!important;\
+  color: rgb(181, 0, 0)!important;\
+  font-family: Monaco,\"Bitstream Vera Sans Mono\",\"Lucida Console\",Terminal,monospace;!important;\
   font-size: 11px!important;\
-  font-weight: normal!important;\
+  font-weight: bold!important;\
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(181, 232, 83, 0.1), 0px 0px 10px rgba(181, 232, 83, 0.1)!important;\
   padding: 5px!important;\
   text-decoration:none!important;\
   opacity:0.3!important;\
   filter:alpha(opacity=40)!important; /* For IE8 and earlier */\
   transition: opacity .25s ease-in-out!important;\
+  border-radius: 5px 5px 5px 5px!important;\
   -moz-transition: opacity .25s ease-in-out!important;\
   -webkit-transition: opacity .25s ease-in-out!important;\
   -webkit-touch-callout: none!important;\
@@ -467,9 +469,19 @@ if (document.body && isTopOrUsefulFrame()) {
   -ms-user-select: none!important;\
   user-select: none!important;\
 }\
+#nongreedy-jsli:before, /* Reset pseudo-elements with Content http://htmlbook.ru/css/content  */ \
+#nongreedy-jsli:after {\
+  content: \"\"!important; \
+}\
+#nongreedy-jsli:focus {\
+  outline: 0; /* Firefox выделяет рамкой из точек все ссылки при нажатии */\
+}\
 #nongreedy-jsli:hover {\
   opacity:1.0!important;\
   filter:alpha(opacity=100)!important; /* For IE8 and earlier */\
+  -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5)!important; /* Для Firefox */\
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5)!important; /* Для Safari и Chrome */\
+  box-shadow: 0 0 10px rgba(0,0,0,0.5)!important; /* Параметры тени */\
 }\
 \
 #nongreedy-sidebar {\
@@ -600,10 +612,17 @@ if (document.body && isTopOrUsefulFrame()) {
   -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2)!important;\
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2)!important;\
 }\
+#nongreedy-sidebar :before, /* Reset pseudo-elements with Content http://htmlbook.ru/css/content  */ \
+#nongreedy-sidebar :after {\
+  content: \"\"!important; \
+}\
 #nongreedy-sidebar .tag_box:before,\
-#nongreedy-sidebar .tag_box:after { content: \"\"!important; display: table!important; }\
-\
-#nongreedy-sidebar .tag_box:after { clear: both!important; }\
+#nongreedy-sidebar .tag_box:after { \
+  display: table!important; \
+}\
+#nongreedy-sidebar .tag_box:after { \
+  clear: both!important; \
+}\
 ");
 }
 
