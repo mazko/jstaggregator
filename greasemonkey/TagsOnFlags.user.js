@@ -455,6 +455,9 @@ if (document.body && isTopOrUsefulFrame()) {
   font-weight: bold!important;\
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(181, 232, 83, 0.1), 0px 0px 10px rgba(181, 232, 83, 0.1)!important;\
   padding: 5px!important;\
+  margin:0!important;\
+  visibility: visible!important;\
+  line-height: 1.5!important;\
   text-decoration:none!important;\
   opacity:0.3!important;\
   filter:alpha(opacity=40)!important; /* For IE8 and earlier */\
@@ -484,6 +487,15 @@ if (document.body && isTopOrUsefulFrame()) {
   box-shadow: 0 0 10px rgba(0,0,0,0.5)!important; /* Параметры тени */\
 }\
 \
+#nongreedy-sidebar * {/* Reset css */\
+  display: block!important;\
+  padding: 0!important;\
+  margin:0!important;\
+  visibility: visible!important;\
+  border: 0!important;\
+  font-size: 100%!important;\
+  vertical-align: baseline!important;\
+}\
 #nongreedy-sidebar {\
   display:none;\
   overflow: hidden!important;\
