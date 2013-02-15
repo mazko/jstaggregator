@@ -433,7 +433,7 @@ if (document.body && isTopOrUsefulFrame()) {
     
     //--- trademark - open site in tab.
     nongreedyjsli.dblclick (function (zEvent) {
-        GM_openInTab("http://nongreedy.ru/");
+        GM_openInTab("http://tagsonflags.com/");
         zEvent.stopPropagation(); 
         zEvent.preventDefault();
     });
@@ -528,13 +528,11 @@ if (document.body && isTopOrUsefulFrame()) {
   overflow: hidden!important;\
   margin:0!important;\
   position: absolute!important;\
-  margin: 0.35em!important;\
+  margin: 0.4em!important;\
   top: 0!important;\
   bottom: 0!important;\
   right: 0!important;\
   left: 0!important;\
-  border: 1px solid grey;\
-  border-radius: 5px 5px 5px 5px!important;\
 }\
 \
 /* tag cloud */\
