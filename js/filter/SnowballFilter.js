@@ -46,6 +46,12 @@ function SnowballFilter(input, language) {
 				return new Snowball("slovene");
 			case "ca" :
 				return new Snowball("catalan");
+			case "cs" :
+				return new Snowball("czech");
+			case "ga" :
+				return new Snowball("irish");
+			case "hy" :
+				return new Snowball("armenian");
 			default :
 				throw "Unsupported language: " + language;
 		}
