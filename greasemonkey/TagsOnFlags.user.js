@@ -19,13 +19,16 @@
 
 // @require  http://mazko.github.com/jsli/lib/LanguageIdentifier.js
 // @require  http://mazko.github.com/jsli/lib/Lng/ca.js
+// @require  http://mazko.github.com/jsli/lib/Lng/cs.js
 // @require  http://mazko.github.com/jsli/lib/Lng/da.js
 // @require  http://mazko.github.com/jsli/lib/Lng/de.js
 // @require  http://mazko.github.com/jsli/lib/Lng/en.js
 // @require  http://mazko.github.com/jsli/lib/Lng/es.js
 // @require  http://mazko.github.com/jsli/lib/Lng/fi.js
 // @require  http://mazko.github.com/jsli/lib/Lng/fr.js
+// @require  http://mazko.github.com/jsli/lib/Lng/ga.js
 // @require  http://mazko.github.com/jsli/lib/Lng/hu.js
+// @require  http://mazko.github.com/jsli/lib/Lng/hy.js
 // @require  http://mazko.github.com/jsli/lib/Lng/it.js
 // @require  http://mazko.github.com/jsli/lib/Lng/nl.js
 // @require  http://mazko.github.com/jsli/lib/Lng/no.js
@@ -37,13 +40,16 @@
 // @require  http://mazko.github.com/jsli/lib/Lng/tr.js
 
 // @resource ca http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/AD.png
+// @resource cs http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/CZ.png
 // @resource da http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/DK.png
 // @resource de http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/DE.png
 // @resource en http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/GB.png
 // @resource es http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/ES.png
 // @resource fi http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/FI.png
 // @resource fr http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/FR.png
+// @resource ga http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/IE.png
 // @resource hu http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/HU.png
+// @resource hy http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/AM.png
 // @resource it http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/IT.png
 // @resource nl http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/NL.png
 // @resource no http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/NO.png
