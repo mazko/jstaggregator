@@ -1,0 +1,28 @@
+1. Get JFlex src
+
+    svn co https://jflex.svn.sourceforge.net/svnroot/jflex/trunk/ jflex_trunk
+    Получена редакция 623.
+
+2. Patch
+
+    cd jflex_trunk/jflex
+    patch --dry-run -p0 -i ../../js-target.diff
+    # If --dry-run OK
+    patch -p0 -i ../../js-target.diff
+
+3. Build.
+
+    mvn package
+
+4. Create JavaScript Tokenizer
+
+    java -jar target/jflex-1.5.0-SNAPSHOT.jar ../../ClassicTokenizerImpl.jflex
+    cp target/jflex-1.5.0-SNAPSHOT.jar ../../
+
+5. If JFlex src modified, regenerate patch an save src.
+
+    #svn diff > ../../js-target.diff - problems wit win <CR>, using native diff to fix this
+    diff -urp --exclude=".svn" ../../jflex_trunk ../../jflex_trunk-js > ../../js-target.diff
+    tar -cvzf ../../mod_src_tree.tgz `svn st | grep "^M" | sed "s/^M\s\+//"`
+
+    
