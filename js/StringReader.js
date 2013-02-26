@@ -28,7 +28,7 @@ function StringReader(input) {
                          
 		var n = Math.min(inputLength - next, len), nT = n;
 
-                while (nT--) {
+		while (nT--) {
 			cbuf[off + nT] = input.charCodeAt(next + nT);
 		}
 

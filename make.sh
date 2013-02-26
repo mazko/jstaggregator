@@ -1,14 +1,17 @@
 #make standalone FlexTokenizer.js
 
+rm jflex/UAX29URLEmailTokenizerImpl.js
+java -jar jflex/jflex-1.5.0-SNAPSHOT.jar jflex/UAX29URLEmailTokenizerImpl.jflex
+
 STANDALONE=js/FlexTokenizer.js
 
 sed -i '/function FlexTokenizer(input, progress) {/q' $STANDALONE;
 echo '' >> $STANDALONE;
-sed '/function ClassicTokenizerImpl(zzReader)  {/,$!d' jflex/ClassicTokenizerImpl.js | sed 's!^!\t!' >> $STANDALONE;
+sed '/function UAX29URLEmailTokenizerImpl(zzReader)  {/,$!d' jflex/UAX29URLEmailTokenizerImpl.js | sed 's!^!\t!' >> $STANDALONE;
 echo '' >> $STANDALONE;
 sed '/function StringReader(input) {/,$!d' js/StringReader.js | sed 's!^!\t!' >> $STANDALONE;
 echo '' >> $STANDALONE;
-echo 'var impl = new ClassicTokenizerImpl(new StringReader(input));' | sed 's!^!\t!' >> $STANDALONE;
+echo 'var impl = new UAX29URLEmailTokenizerImpl(new StringReader(input));' | sed 's!^!\t!' >> $STANDALONE;
 echo '' >> $STANDALONE;
 sed '/function Token(term, start, end) {/,$!d' js/Token.js | sed 's!^!\t!' >> $STANDALONE;
 echo '' >> $STANDALONE;

@@ -16,7 +16,7 @@
 
 4. Create JavaScript Tokenizer
 
-    java -jar target/jflex-1.5.0-SNAPSHOT.jar ../../ClassicTokenizerImpl.jflex
+    java -jar target/jflex-1.5.0-SNAPSHOT.jar ../../UAX29URLEmailTokenizerImpl.jflex
     cp target/jflex-1.5.0-SNAPSHOT.jar ../../
 
 5. If JFlex src modified, regenerate patch an save src.

@@ -1,6 +1,6 @@
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/CountEmitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/CountEmitter.java
---- ../../jflex_trunk/jflex/src/main/java/jflex/CountEmitter.java	2013-02-26 13:39:53.536382515 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/CountEmitter.java	2013-02-26 13:28:35.976374542 +0200
+--- ../../jflex_trunk/jflex/src/main/java/jflex/CountEmitter.java	2013-02-26 20:33:36.000000000 +0200
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/CountEmitter.java	2013-02-26 20:40:12.277042890 +0200
 @@ -7,98 +7,124 @@
   *                                                                         *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -213,9 +213,9 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/CountEmit
 +	}
  }
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/Emitter.java
---- ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.java	2013-02-26 13:39:53.536382515 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/Emitter.java	2013-02-26 13:28:35.984374542 +0200
-@@ -7,1632 +7,1808 @@
+--- ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.java	2013-02-26 20:33:36.000000000 +0200
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/Emitter.java	2013-02-26 20:43:17.913045075 +0200
+@@ -7,1632 +7,1805 @@
   *                                                                         *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
  
@@ -3157,12 +3157,9 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
 +			println("        case " + label + ": ");
 +
 +			if (action.lookAhead() == Action.FIXED_BASE) {
-+				throw new UnsupportedOperationException(
-+						"JavaScript target does not support lookAhead Action.FIXED_BASE");
-+				
-+//				println("          // lookahead expression with fixed base length");
-+//				println("          zzMarkedPos = zzStartRead + "
-+//						+ action.getLookLength() + ";");
++				println("          // lookahead expression with fixed base length");
++				println("          zzMarkedPos = zzStartRead + "
++						+ action.getLookLength() + ";");
 +			}
 +
 +			if (action.lookAhead() == Action.FIXED_LOOK
@@ -3643,8 +3640,8 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
  
  }
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/PackEmitter.java
---- ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitter.java	2013-02-26 13:39:53.540382515 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/PackEmitter.java	2013-02-26 13:28:35.984374542 +0200
+--- ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitter.java	2013-02-26 20:33:36.000000000 +0200
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/PackEmitter.java	2013-02-26 20:40:12.293042890 +0200
 @@ -7,213 +7,235 @@
   *                                                                         *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -4079,8 +4076,8 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitt
 +	}
  }
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skeleton.default ../../jflex_trunk-js/jflex/src/main/resources/jflex/skeleton.default
---- ../../jflex_trunk/jflex/src/main/resources/jflex/skeleton.default	2013-02-26 13:39:53.540382515 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/resources/jflex/skeleton.default	2013-02-26 13:35:02.136379085 +0200
+--- ../../jflex_trunk/jflex/src/main/resources/jflex/skeleton.default	2013-02-26 20:33:36.000000000 +0200
++++ ../../jflex_trunk-js/jflex/src/main/resources/jflex/skeleton.default	2013-02-26 20:40:12.293042890 +0200
 @@ -1,6 +1,6 @@
  
    /** This character denotes the end of file */
@@ -4377,8 +4374,8 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skel
  --- local declarations
  
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/test/java/jflex/PackEmitterTest.java ../../jflex_trunk-js/jflex/src/test/java/jflex/PackEmitterTest.java
---- ../../jflex_trunk/jflex/src/test/java/jflex/PackEmitterTest.java	2013-02-26 13:39:53.532382516 +0200
-+++ ../../jflex_trunk-js/jflex/src/test/java/jflex/PackEmitterTest.java	2013-02-26 13:28:35.984374542 +0200
+--- ../../jflex_trunk/jflex/src/test/java/jflex/PackEmitterTest.java	2013-02-26 20:32:41.000000000 +0200
++++ ../../jflex_trunk-js/jflex/src/test/java/jflex/PackEmitterTest.java	2013-02-26 20:40:12.293042890 +0200
 @@ -15,53 +15,50 @@ import junit.framework.TestCase;
   * PackEmitterTest
   * 
@@ -4475,3 +4472,4 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/test/java/jflex/PackEmitt
 +						+ Out.NL + "    \"\\40\\41\\42\\43", p.toString());
 +	}
  }
+Только в ../../jflex_trunk-js/jflex: target

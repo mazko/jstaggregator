@@ -1327,12 +1327,9 @@ final public class Emitter {
 			println("        case " + label + ": ");
 
 			if (action.lookAhead() == Action.FIXED_BASE) {
-				throw new UnsupportedOperationException(
-						"JavaScript target does not support lookAhead Action.FIXED_BASE");
-				
-//				println("          // lookahead expression with fixed base length");
-//				println("          zzMarkedPos = zzStartRead + "
-//						+ action.getLookLength() + ";");
+				println("          // lookahead expression with fixed base length");
+				println("          zzMarkedPos = zzStartRead + "
+						+ action.getLookLength() + ";");
 			}
 
 			if (action.lookAhead() == Action.FIXED_LOOK
