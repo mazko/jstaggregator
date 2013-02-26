@@ -127,14 +127,15 @@
     }
 
     // unlikely but not impossible: read 0 characters, but not at end of stream    
-    if (numRead == 0) {
-      var c = zzReader.read();
-      if (c == -1) {
-        return true;
-      } else {
-        zzBuffer[zzEndRead++] = c;
-        return false;
-      }     
+    if (numRead === 0) {
+      throw "Fix me! numRead === 0 -> need to be implemented ?";
+      //var c = zzReader.read();
+      //if (c == -1) {
+      //  return true;
+      //} else {
+      //  zzBuffer[zzEndRead++] = c;
+      //  return false;
+      //}     
     }
 
     // numRead < 0

@@ -8,28 +8,6 @@
 
 function FlexTokenizer(input, progress) {
 
-	var inputLength = input.length;
-
-	function Reader() {
-	
-		var pos = 0;
-	
-		this.read = function(cbuf, off, len) {
-	                         
-			if (pos >= inputLength) return -1;
-			if (!len) return 0;
-	                         
-			var total = 0;
-	                         
-			while (pos < inputLength) {
-				cbuf[off + total] = input.charCodeAt(pos++);
-				if (++total >= len) break;
-			}
-				
-			return total;
-		}
-	}
-
 	function ClassicTokenizerImpl(zzReader)  {
 	
 	  /** This character denotes the end of file */
@@ -291,14 +269,15 @@ function FlexTokenizer(input, progress) {
 	    }
 	
 	    // unlikely but not impossible: read 0 characters, but not at end of stream    
-	    if (numRead == 0) {
-	      var c = zzReader.read();
-	      if (c == -1) {
-	        return true;
-	      } else {
-	        zzBuffer[zzEndRead++] = c;
-	        return false;
-	      }     
+	    if (numRead === 0) {
+	      throw "Fix me! numRead === 0 -> need to be implemented ?";
+	      //var c = zzReader.read();
+	      //if (c == -1) {
+	      //  return true;
+	      //} else {
+	      //  zzBuffer[zzEndRead++] = c;
+	      //  return false;
+	      //}     
 	    }
 	
 	    // numRead < 0
@@ -997,7 +976,38 @@ function FlexTokenizer(input, progress) {
 	
 	}
 
-	var impl = new ClassicTokenizerImpl(new Reader());
+	function StringReader(input) {
+	
+		/* Java origin impl - openjdk/jdk/src/share/classes/java/io/StringReader.java. Exceptions skipped - JFlex don't use them */
+	
+		var next = 0, inputLength = input.length;
+	
+		this.read = function(cbuf, off, len) {
+	                
+			if (arguments.length !== 3) {
+				throw "Expected 3 arguments passed, found: " + arguments.length;
+			}
+	
+			if (!len) {
+				return 0;
+			}
+	
+			if (next >= inputLength) {
+				return -1;
+			}
+	                         
+			var n = Math.min(inputLength - next, len), nT = n;
+	
+	                while (nT--) {
+				cbuf[off + nT] = input.charCodeAt(next + nT);
+			}
+	
+			next += n;	
+			return n;
+		}
+	}
+
+	var impl = new ClassicTokenizerImpl(new StringReader(input));
 
 	function Token(term, start, end) {
 		this.term = term;
@@ -1032,6 +1042,8 @@ function FlexTokenizer(input, progress) {
 
 		var token = impl.getNextToken();
 		if (token === null) return null;
+
+	var inputLength = input.length;
 
 		if (progress) {
 			progress(impl.yychar(), inputLength);
