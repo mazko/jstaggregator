@@ -21,8 +21,10 @@
 
 5. If JFlex src modified, regenerate patch an save src.
 
-    #svn diff > ../../js-target.diff - problems wit win <CR>, using native diff to fix this
+    #svn diff > ../../js-target.diff - problems with win <CR>, using native diff fix this
     diff -urp --exclude=".svn" ../../jflex_trunk ../../jflex_trunk-js > ../../js-target.diff
     tar -cvzf ../../mod_src_tree.tgz `svn st | grep "^M" | sed "s/^M\s\+//"`
+    tar xf ../../mod_src_tree.tgz -C ../../
+    rm ../../mod_src_tree.tgz
 
     
