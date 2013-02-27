@@ -71744,12 +71744,12 @@ function FlexTokenizer(input, progress) {
 		return cloneToken;
 	}
 
+	var inputLength = input.length;
+
 	this.incrementToken = function() {
 
 		var token = impl.getNextToken();
 		if (token === null) return null;
-
-	var inputLength = input.length;
 
 		if (progress) {
 			progress(impl.yychar(), inputLength);

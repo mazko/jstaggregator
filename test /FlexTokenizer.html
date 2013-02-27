@@ -14,24 +14,32 @@
 				QUnit.deepEqual(new FlexTokenizer("").incrementToken(), null);
 			});
 
+			test("empty whitespase test", function() {
+				QUnit.deepEqual(new FlexTokenizer(" ").incrementToken(), null);
+			});
+
 			test("simple test", function() {
-                                var tokenStream = new FlexTokenizer("Wha\u0301t's this thing do?"), res = [], token;
+				var tokenStream = new FlexTokenizer("Wha\u0301t's this thing do?"), res = [], offset = [], token;
 				while (token = tokenStream.incrementToken()) {
 					res.push(token.term);
+					offset.push(token.offset);
 				}
 				QUnit.deepEqual(res, ["Wha\u0301t's", "this", "thing", "do"]);
+				QUnit.deepEqual(offset, [[{start: 0, end: 7}],[{start: 8, end: 12}],[{start: 13, end: 18}],[{start: 19, end: 21}]]);
 			});
 
 			test("not 1:1 case mapping test", function() {
-                                var tokenStream = new FlexTokenizer(" İoo+BAR i̇ooBar\n"), res = [], token;
+				var tokenStream = new FlexTokenizer(" İoo+BAR i̇ooBar\n"), res = [], offset = [], token;
 				while (token = tokenStream.incrementToken()) {
 					res.push(token.term);
+					offset.push(token.offset);
 				}
 				QUnit.deepEqual(res, ["İoo", "BAR", "i̇ooBar"]);
+				QUnit.deepEqual(offset, [[{start: 1, end: 4}],[{start: 5, end: 8}],[{start: 9, end: 16}]]);
 			});
 
 			test("arabic test", function() {
-                                var tokenStream = new FlexTokenizer("الفيلم الوثائقي الأول عن ويكيبيديا يسمى \"الحقيقة بالأرقام: قصة ويكيبيديا\" (بالإنجليزية: Truth in Numbers: The Wikipedia Story)، سيتم إطلاقه في 2008."), res = [], token;
+				var tokenStream = new FlexTokenizer("الفيلم الوثائقي الأول عن ويكيبيديا يسمى \"الحقيقة بالأرقام: قصة ويكيبيديا\" (بالإنجليزية: Truth in Numbers: The Wikipedia Story)، سيتم إطلاقه في 2008."), res = [], token;
 				while (token = tokenStream.incrementToken()) {
 					res.push(token.term);
 				}
@@ -40,7 +48,7 @@
 			});
 
 			test("chinese test", function() {
-                                var tokenStream = new FlexTokenizer("我是中国人。 １２３４ Ｔｅｓｔｓ "), res = [], token;
+				var tokenStream = new FlexTokenizer("我是中国人。 １２３４ Ｔｅｓｔｓ "), res = [], token;
 				while (token = tokenStream.incrementToken()) {
 					res.push(token.term);
 				}
@@ -48,7 +56,7 @@
 			});
 
 			test("korean test", function() {
-                                var tokenStream = new FlexTokenizer("안녕하세요 한글입니다"), res = [], token;
+				var tokenStream = new FlexTokenizer("안녕하세요 한글입니다"), res = [], token;
 				while (token = tokenStream.incrementToken()) {
 					res.push(token.term);
 				}
@@ -56,7 +64,7 @@
 			});
 
 			test("hyphen test", function() {
-                                var tokenStream = new FlexTokenizer("some-dashed-phrase"), res = [], token;
+				var tokenStream = new FlexTokenizer("some-dashed-phrase"), res = [], token;
 				while (token = tokenStream.incrementToken()) {
 					res.push(token.term);
 				}
@@ -64,7 +72,7 @@
 			});
 
 			test("URLs test", function() {
-                                var tokenStream = new FlexTokenizer(
+				var tokenStream = new FlexTokenizer(
                                     "http://johno.jsmf.net/knowhow/ngrams/index.php?table=en-dickens-word-2gram&paragraphs=50&length=200&no-ads=on\n"
                                     + " some extra\nWords thrown in here. "
                                     + "http://c5-3486.bisynxu.FR/aI.YnNms/"
@@ -101,7 +109,7 @@
 			});
 
 			test("emails test", function() {
-                                var tokenStream = new FlexTokenizer(
+				var tokenStream = new FlexTokenizer(
                                     "some extra\nWords thrown in here. "
                                     + "dJ8ngFi@avz13m.CC\n"
                                     + "kU-l6DS@[082.015.228.189]\n"

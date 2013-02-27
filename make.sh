@@ -15,12 +15,12 @@ echo 'var impl = new UAX29URLEmailTokenizerImpl(new StringReader(input));' | sed
 echo '' >> $STANDALONE;
 sed '/function Token(term, start, end) {/,$!d' js/Token.js | sed 's!^!\t!' >> $STANDALONE;
 echo '' >> $STANDALONE;
+echo 'var inputLength = input.length;' | sed 's!^!\t!' >> $STANDALONE;
+echo '' >> $STANDALONE;
 echo 'this.incrementToken = function() {' | sed 's!^!\t!' >> $STANDALONE;
 echo '' >> $STANDALONE;
 echo 'var token = impl.getNextToken();' | sed 's!^!\t\t!' >> $STANDALONE;
 echo 'if (token === null) return null;' | sed 's!^!\t\t!' >> $STANDALONE;
-echo '' >> $STANDALONE;
-echo 'var inputLength = input.length;' | sed 's!^!\t!' >> $STANDALONE;
 echo '' >> $STANDALONE;
 echo 'if (progress) {' | sed 's!^!\t\t!' >> $STANDALONE;
 echo 'progress(impl.yychar(), inputLength);' | sed 's!^!\t\t\t!' >> $STANDALONE;

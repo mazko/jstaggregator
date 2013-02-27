@@ -80,6 +80,10 @@
 				QUnit.deepEqual(new StringReader('foo').read(res,0,99), 3);
 				res.length = 4;
 				QUnit.deepEqual(res, ['f'.charCodeAt(0), 'o'.charCodeAt(0), 'o'.charCodeAt(0),undefined]);
+				QUnit.deepEqual(new StringReader('foo').read(res,99,0), 0);
+				QUnit.deepEqual(res, ['f'.charCodeAt(0), 'o'.charCodeAt(0), 'o'.charCodeAt(0),undefined]);
+				QUnit.deepEqual(new StringReader('').read(res,0,1), -1);
+				QUnit.deepEqual(res, ['f'.charCodeAt(0), 'o'.charCodeAt(0), 'o'.charCodeAt(0),undefined]);
 			});
 
 			test("stream test", function() {
