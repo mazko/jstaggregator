@@ -359,12 +359,11 @@ function FlexTokenizer(input, progress) {
 	
 	    /* is the buffer big enough? */
 	    if (zzCurrentPos >= zzBuffer.length) {
-	      throw "Fix me! zzRefill() blow zzBuffer -> need to be implemented ?";
 	      /* if not: blow it up */
 	      //char newBuffer[] = new char[zzCurrentPos*2];
 	      //System.arraycopy(zzBuffer, 0, newBuffer, 0, zzBuffer.length);
 	      //zzBuffer = newBuffer;
-	      //zzBuffer[(zzCurrentPos*2) - 1] = undefined;
+	      zzBuffer.length = zzCurrentPos*2;
 	    }
 	
 	    /* finally: fill the buffer with new input */
