@@ -148,19 +148,20 @@
 				var template = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYabcdefghijklmnopqrstuvwxyz", stressinput = [];
 				for (var i = 0; i < 1000; i++) {
 					stressinput.push(template);
-				}
-				var tokenStream = new FlexTokenizer(stressinput.join("")), res = [], token;
-				while (token = tokenStream.incrementToken()) {
-					res.push(token.term);
-				}
-				QUnit.deepEqual(res, [stressinput.join("")]);
 
-				tokenStream = new FlexTokenizer(stressinput.join(" ")); 
-				res = [];
-				while (token = tokenStream.incrementToken()) {
-					res.push(token.term);
+					var tokenStream = new FlexTokenizer(stressinput.join("")), res = [], token;
+					while (token = tokenStream.incrementToken()) {
+						res.push(token.term);
+					}
+					QUnit.deepEqual(res, [stressinput.join("")]);
+
+					tokenStream = new FlexTokenizer(stressinput.join(" ")); 
+					res = [];
+					while (token = tokenStream.incrementToken()) {
+						res.push(token.term);
+					}
+					QUnit.deepEqual(res, stressinput);
 				}
-				QUnit.deepEqual(res, stressinput);
 			});
 
 		</script>
