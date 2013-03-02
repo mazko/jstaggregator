@@ -37,7 +37,7 @@ STANDALONE=js/Taggregator.js
 sed -i '/var Taggregator = (function() {/q' $STANDALONE;
 
 echo '' >> $STANDALONE;
-sed '/function ShingleStopFilter(input, stopList, newMaxShingleSz, newMaxSzShinglesFIFO, newTokenSeparator) {/,$!d' js/filter/ShingleStopFilter.js | sed 's!^!\t!' >> $STANDALONE;
+sed '/function ShingleStopFilter(input, stopList, maxShingleSz, maxSzShinglesFIFO, tokenSeparator) {/,$!d' js/filter/ShingleStopFilter.js | sed 's!^!\t!' >> $STANDALONE;
 echo '' >> $STANDALONE;
 sed '/function SnowballFilter(input, language) {/,$!d' js/filter/SnowballFilter.js | sed 's!^!\t!' >> $STANDALONE;
 echo '' >> $STANDALONE;

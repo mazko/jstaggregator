@@ -6,16 +6,16 @@
  * http://www.opensource.org/licenses/bsd-license.html
  */
 
-function ShingleStopFilter(input, stopList, newMaxShingleSz, newMaxSzShinglesFIFO, newTokenSeparator) {
+function ShingleStopFilter(input, stopList, maxShingleSz, maxSzShinglesFIFO, tokenSeparator) {
 
 	var iIncToken = input.incrementToken;
 
-	var maxShingleSz = newMaxShingleSz || 2;
-	var tokenSeparator = newTokenSeparator || " ";
-	var maxSzShinglesFIFO = newMaxSzShinglesFIFO || 25;
-
 	if (maxShingleSz < 2)
 		throw "Max shingle size must be >= 2, current: " + maxShingleSz;
+
+	maxShingleSz = maxShingleSz || 2;
+	maxSzShinglesFIFO = maxSzShinglesFIFO || 25;
+	tokenSeparator = tokenSeparator || " ";
 
 	var shingleBuf = [], shingles = [];
 
@@ -52,7 +52,7 @@ function ShingleStopFilter(input, stopList, newMaxShingleSz, newMaxSzShinglesFIF
 					var item = makeItem(token.clone(), is, c), itemToken = item.token;
 					allShingles[j] = item;
 					itemToken.term += tokenSeparator + tokenTerm;
-					item.isStopEnd = ais;
+					//item.isStopEnd = ais;
 					if (ais)
 						item.stopCount++;
 					itemToken.offset = itemToken.offset.concat(aToken.offset);
@@ -62,7 +62,7 @@ function ShingleStopFilter(input, stopList, newMaxShingleSz, newMaxSzShinglesFIF
 					do {
 						var item = allShingles[j], itemToken = item.token;
 						itemToken.term += tokenSeparator + tokenTerm;
-						item.isStopEnd = ais;
+						//item.isStopEnd = ais;
 						if (ais)
 							item.stopCount++;
 						itemToken.offset = itemToken.offset
@@ -79,7 +79,7 @@ function ShingleStopFilter(input, stopList, newMaxShingleSz, newMaxSzShinglesFIF
 			do {
 				var item = allShingles[sb], itemToken = item.token, itol = itemToken.offset.length, isc = item.stopCount;
 
-				if (itol == isc)
+				if (itol === isc)
 					continue;
 
 				//if (item.isStopStart || item.isStopEnd)
@@ -96,8 +96,8 @@ function ShingleStopFilter(input, stopList, newMaxShingleSz, newMaxSzShinglesFIF
 	function makeItem(token, isStop, stopCount) {
 		return {
 			"token" : token,
-			"isStopStart" : isStop,
-			"isStopEnd" : isStop,
+			//"isStopStart" : isStop,
+			//"isStopEnd" : isStop,
 			"stopCount" : stopCount
 		};
 	}

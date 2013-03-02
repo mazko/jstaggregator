@@ -149,19 +149,37 @@
 				for (var i = 0; i < 1000; i++) {
 					stressinput.push(template);
 
-					var tokenStream = new FlexTokenizer(stressinput.join("")), res = [], token;
+					var tokenStream = new FlexTokenizer(stressinput.join("")), res = [], offset = [], token;
 					while (token = tokenStream.incrementToken()) {
 						res.push(token.term);
+						offset.push(token.offset);
 					}
 					QUnit.deepEqual(res, [stressinput.join("")]);
+					QUnit.deepEqual(offset, [[{start: 0, end: stressinput.length * template.length}]]);
 
 					tokenStream = new FlexTokenizer(stressinput.join(" ")); 
-					res = [];
+					res = [], offset = [];
 					while (token = tokenStream.incrementToken()) {
 						res.push(token.term);
+						offset.push(token.offset);
 					}
 					QUnit.deepEqual(res, stressinput);
+					QUnit.deepEqual(offset, stressinput.map(function(value, index) {
+						var begin = (1 + value.length) * index;
+						return [{start: begin, end: begin + value.length}];
+					}));
 				}
+			});
+
+			test("whitespace stress test", function() {
+				function setAll(a, v) {
+    					var i, n = a.length;
+    					for (i = 0; i < n; ++i) {
+        					a[i] = v;
+    					}
+					return a;
+				}
+				QUnit.deepEqual(new FlexTokenizer(setAll(new Array(10000), ' ').join(' ')).incrementToken(), null);
 			});
 
 		</script>
