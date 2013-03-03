@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>QUnit StringReader tests</title>
+		<link rel="stylesheet" href="qunit/qunit-1.11.0.css">
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<script src="qunit/qunit-1.11.0.js"></script>
+		<script src="../js/StringReader.js"></script>
+		<script>
+
+			test("throws test", function() {
+				throws(
+					function () {
+        					new StringReader('').read();
+					}, /Expected 3 arguments passed, found: 0/
+				);
+
+				throws(
+					function () {
+        					new StringReader('').read([]);
+					}, /Expected 3 arguments passed, found: 1/
+				);
+
+				throws(
+					function () {
+        					new StringReader('').read([], undefined);
+					}, /Expected 3 arguments passed, found: 2/
+				);
+			});
+
+			/*
+				import java.io.*;
+
+				public class TestReader {
+
+					public static void main(String args[]) throws IOException{
+						Reader sr = new StringReader("");
+						System.out.println(sr.read(new char[0], 0, 0));
+					}
+				}
+			*/
+
+			test("empty test", function() {
+				QUnit.deepEqual(new StringReader('').read([],0,0), 0);
+				QUnit.deepEqual(new StringReader('').read(new Array(100),0,0), 0);
+				QUnit.deepEqual(new StringReader('').read(new Array(100),0,100), -1);
+				QUnit.deepEqual(new StringReader('').read(new Array(100),100,0), 0);
+				QUnit.deepEqual(new StringReader('').read(new Array(100),99,1), -1);
+			});
+
+			/*
+				import java.io.*;
+
+				public class TestReader {
+
+					public static void main(String args[]) throws IOException{
+						Reader sr = new StringReader("foo");
+						char[] buf = new char[0];
+						System.out.println(sr.read(buf, 0, 0));
+						System.out.println(buf);
+					}
+				}
+			*/
+
+			test("some data test", function() {
+				QUnit.deepEqual(new StringReader('foo').read([],0,0), 0);
+				var res = new Array(1) /* even just [] - but this is JavaScript trick only, not Java */;
+				QUnit.deepEqual(new StringReader('foo').read(res,0,1), 1);
+				QUnit.deepEqual(res, ['f'.charCodeAt(0)]);
+				var res = ['x',undefined, undefined]; 
+				QUnit.deepEqual(new StringReader('foo').read(res,1,2), 2);
+				QUnit.deepEqual(res, ['x','f'.charCodeAt(0), 'o'.charCodeAt(0)]);
+				var res = new Array(3);
+				QUnit.deepEqual(new StringReader('foo').read(res,0,3), 3);
+				QUnit.deepEqual(res, ['f'.charCodeAt(0), 'o'.charCodeAt(0), 'o'.charCodeAt(0)]);
+				var res = new Array(100);
+				QUnit.deepEqual(new StringReader('foo').read(res,0,99), 3);
+				res.length = 4;
+				QUnit.deepEqual(res, ['f'.charCodeAt(0), 'o'.charCodeAt(0), 'o'.charCodeAt(0),undefined]);
+				QUnit.deepEqual(new StringReader('foo').read(res,99,0), 0);
+				QUnit.deepEqual(res, ['f'.charCodeAt(0), 'o'.charCodeAt(0), 'o'.charCodeAt(0),undefined]);
+				QUnit.deepEqual(new StringReader('').read(res,0,1), -1);
+				QUnit.deepEqual(res, ['f'.charCodeAt(0), 'o'.charCodeAt(0), 'o'.charCodeAt(0),undefined]);
+			});
+
+			test("stream test", function() {
+				var buf = [], res = new Array(1), reader = new StringReader('The quick brown fox jumps over the lazy dog');
+				while (reader.read(res,0,1) > -1) {
+					buf.push(res[0]);
+				}
+				QUnit.deepEqual(res.length, 1);
+				QUnit.deepEqual(String.fromCharCode.apply(String, buf), 'The quick brown fox jumps over the lazy dog');
+			});
+
+		</script>
+	</body>
+</html>
+

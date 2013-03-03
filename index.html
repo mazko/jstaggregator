@@ -51,13 +51,13 @@ Install <a href="greasemonkey/TagsOnFlags.user.js">TagsOnFlags</a> UserScript by
 <p>Here is a bit more description about <a href="http://wiki.greasespot.net/Greasemonkey_Manual:Installing_Scripts" rel="nofollow" target="_blank">Greasemonkey</a>, <a href="http://userscripts.org/about/installing" rel="nofollow" target="_blank">UserScripts</a> and installation process.
 That's it! You'll find new <a href="greasemonkey/TagsOnFlags.user.js">TagsOnFlags</a> button injected in bottom-right corner across every page loaded - just like this: </p>
 
-<p><img width="100%" src="images/screenshots/FF-main-launch-button.png" alt="FF screenshot"></img></p>
-<p><img width="100%" src="images/screenshots/Chrome-main-launch-button.png" alt="Chromium screenshot"></img></p>
+<p><img style="width:100%" src="images/screenshots/FF-main-launch-button.png" alt="FF screenshot" /></p>
+<p><img style="width:100%" src="images/screenshots/Chrome-main-launch-button.png" alt="Chromium screenshot" /></p>
 
 <p>Cool :) But it's not all. As there is a regular button <span style="border: 1px solid rgb(204, 204, 204);background: none repeat scroll 0% 0% rgb(247, 247, 247);cursor: pointer;color: rgb(181, 0, 0);text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(181, 232, 83, 0.1), 0px 0px 10px rgba(181, 232, 83, 0.1);border-radius: 5px 5px 5px 5px;padding: 5px;">^_^</span>, of course we can Click at it !</p>
 
-<p><img width="100%" src="images/screenshots/FF-clicked-flag-progress.png" alt="FF screenshot"></img></p>
-<p><img width="100%" src="images/screenshots/Chrome-clicked-flag-progress.png" alt="Chromium screenshot"></img></p>
+<p><img style="width:100%" src="images/screenshots/FF-clicked-flag-progress.png" alt="FF screenshot" /></p>
+<p><img style="width:100%" src="images/screenshots/Chrome-clicked-flag-progress.png" alt="Chromium screenshot" /></p>
 
 <p>So what is happening here ?<p>
 
@@ -82,13 +82,13 @@ Text analysis process started in background.
 
 <p>Background calculations process can be stopped at any time by clicking the button again. Also sometimes we don't want to analyze whole page content - in that case it is possible to do selection for interesting fragment, thus ignoring text out of selection:<p>
 
-<p><img width="100%" src="images/screenshots/FF-sel-clicked-flag-progress.png" alt="FF screenshot"></img></p>
-<p><img width="100%" src="images/screenshots/Chrome-sel-clicked-flag-progress.png" alt="Chromium screenshot"></img></p>
+<p><img style="width:100%" src="images/screenshots/FF-sel-clicked-flag-progress.png" alt="FF screenshot" /></p>
+<p><img style="width:100%" src="images/screenshots/Chrome-sel-clicked-flag-progress.png" alt="Chromium screenshot" /></p>
 
 <p>After analyzing process finished, additional sidebar appears showing most relatively texts fragments found in a given text, sorted by their total occurrence number. Yeah, this is very similar with wide known tag cloud. <a href="http://snowball.tartarus.org/Snowball" rel="nofollow" target="_blank">Snowball</a> stemming algorithm was used here to find similar texts fragments:<p>
 
-<p><img width="100%" src="images/screenshots/FF-tag-sidear.png" alt="FF screenshot"></img></p>
-<p><img width="100%" src="images/screenshots/Chrome-tag-sidear.png" alt="Chromium screenshot"></img></p>
+<p><img style="width:100%" src="images/screenshots/FF-tag-sidear.png" alt="FF screenshot" /></p>
+<p><img style="width:100%" src="images/screenshots/Chrome-tag-sidear.png" alt="Chromium screenshot" /></p>
 
 <h3>Sidebar Navigation</h3>
 
@@ -116,8 +116,8 @@ Highlight tag in page: Left Mouse click on it.
 </li>
 </ul>
 
-<p><img width="100%" src="images/screenshots/FF-highlight-tag.png" alt="FF screenshot"></img></p>
-<p><img width="100%" src="images/screenshots/Chrome-highlight-tag.png" alt="Chromium screenshot"></img></p>
+<p><img style="width:100%" src="images/screenshots/FF-highlight-tag.png" alt="FF screenshot" /></p>
+<p><img style="width:100%" src="images/screenshots/Chrome-highlight-tag.png" alt="Chromium screenshot" /></p>
 
 <h3>Recipes - Good to Know</h3>
 
@@ -125,13 +125,43 @@ Show JavaScript console / log output.
 
 <pre><code>CTRL + SHIFT + J</code></pre>
 
-Cleanup - cookies, cache, history etc.
+Cleanup - cookies, CACHE, history etc.
 
 <pre><code>CTRL + SHIFT + DELETE</code></pre>
+
+CACHE cleanup is very useful procedure during UserScript update process, preventing any conflicts with previous installation files. Next steps are recommended for 100% guarantee update / reinstall any UserScript in any browser:
+
+<ul>
+<li>
+Remove UserScript from GreaseMonkey.
+</li>
+</ul>
+
+<ul>
+<li>
+Clear browser CACHE.
+</li>
+</ul>
+
+<ul>
+<li>
+Restart browser.
+</li>
+</ul>
+
+<ul>
+<li>
+Install UserScript new version without any conflicts.
+</li>
+</ul>
 
 <p>By default GreaseMonkey doesn't work with local files. This <a href="http://wiki.greasespot.net/Include_and_exclude_rules#Extra_schemes" rel="nofollow" target="_blank">option</a> is configurable.</p>
 
 <p>Each modern browser suspends JavaScript execution for all tabs, except visible one. But it is still possible to move a tab into a new window (usually by click and drag on it) and continue text analysis process while browsing other useful web pages at the same time.</p>
+
+<h3>Unit Tests</h3>
+
+<p><a href="greasemonkey/test/composite.html" target="_blank">Taggregator</a> | <a href="http://mazko.github.com/jsli/" target="_blank">Language Identifier</a> | <a href="http://mazko.github.com/jssnowball/" target="_blank">Snowball Stemmers</a></p>
 
 <h3>Contact A Human</h3>
 

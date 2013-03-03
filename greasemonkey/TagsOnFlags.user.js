@@ -8,14 +8,30 @@
 // @copyright		2013+, Oleg Mazko
 // @icon		http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/mars.png
 
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/Token.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/FlexTokenizer.js
 // @require  http://mazko.github.com/jstaggregator/greasemonkey/js/jquery-1.9.1.min.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/filter/LengthFilter.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/filter/SnowballFilter.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/filter/ShingleStopFilter.js
-
 // @require  http://mazko.github.com/jssnowball/lib/Snowball.js
+
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/Taggregator.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/ca.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/cs.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/da.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/de.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/en.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/es.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/fi.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/fr.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/ga.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/hu.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/hy.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/it.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/nl.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/no.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/pt.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/ro.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/ru.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/sl.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/sv.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/tr.js
 
 // @require  http://mazko.github.com/jsli/lib/LanguageIdentifier.js
 // @require  http://mazko.github.com/jsli/lib/Lng/ca.js
@@ -80,16 +96,7 @@ function buildTagCloud(text, lng, ahref, sidebar, progress) {
     }
     GM_log(text);
     
-    var tokenStream = new LengthFilter(
-        new ShingleStopFilter(
-            new SnowballFilter(
-                new FlexTokenizer(text, progress), 
-                lng
-            ),
-            3 /* tags 3 words max */
-        ),
-        2 /* Skip tags < 2 total chars */, 50 /* Skip tags > 50 total chars */ 
-    );
+    var tokenStream = Taggregator.create(text, lng, progress);
     
     var token, tokensMap = {};
     _is_working = true;
@@ -383,7 +390,7 @@ if (document.body && isTopOrUsefulFrame()) {
         id: 'nongreedy-jsli',
         href: '#',
         text: '^_^',
-        title: GM_info.script.name + ' v' + GM_info.script.version + ' ALFA | ' + LanguageIdentifier.getSupportedLanguages()
+        title: GM_info.script.name + ' v' + GM_info.script.version + ' BETA | ' + LanguageIdentifier.getSupportedLanguages()
     }).appendTo('body');
     
     var nongreedysidebar = $('<div/>', {
