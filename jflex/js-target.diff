@@ -1,6 +1,6 @@
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/CountEmitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/CountEmitter.java
 --- ../../jflex_trunk/jflex/src/main/java/jflex/CountEmitter.java	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/CountEmitter.java	2013-03-04 13:17:56.520716655 +0200
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/CountEmitter.java	2013-03-04 19:56:32.073069798 +0200
 @@ -7,98 +7,124 @@
   *                                                                         *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -214,7 +214,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/CountEmit
  }
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/Emitter.java
 --- ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.java	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/Emitter.java	2013-03-04 14:08:13.512752164 +0200
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/Emitter.java	2013-03-04 19:56:32.097069799 +0200
 @@ -7,1632 +7,1800 @@
   *                                                                         *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -3636,7 +3636,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
  }
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/HiLowEmitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/HiLowEmitter.java
 --- ../../jflex_trunk/jflex/src/main/java/jflex/HiLowEmitter.java	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/HiLowEmitter.java	2013-03-04 14:40:29.444774950 +0200
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/HiLowEmitter.java	2013-03-04 19:56:32.097069799 +0200
 @@ -38,28 +38,39 @@ public class HiLowEmitter extends PackEm
      // close last string chunk:
      println("\";");
@@ -3689,7 +3689,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/HiLowEmit
    /**
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/PackEmitter.java
 --- ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitter.java	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/PackEmitter.java	2013-03-04 13:17:56.528716658 +0200
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/PackEmitter.java	2013-03-04 19:56:32.097069799 +0200
 @@ -7,213 +7,235 @@
   *                                                                         *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -4125,7 +4125,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitt
  }
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skeleton.default ../../jflex_trunk-js/jflex/src/main/resources/jflex/skeleton.default
 --- ../../jflex_trunk/jflex/src/main/resources/jflex/skeleton.default	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/resources/jflex/skeleton.default	2013-03-04 13:17:56.528716658 +0200
++++ ../../jflex_trunk-js/jflex/src/main/resources/jflex/skeleton.default	2013-03-04 19:58:29.909075615 +0200
 @@ -1,6 +1,6 @@
  
    /** This character denotes the end of file */
@@ -4134,7 +4134,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skel
  
    /** initial size of the lookahead buffer */
  --- private static final int ZZ_BUFFERSIZE = ...;
-@@ -9,66 +9,66 @@
+@@ -9,66 +9,64 @@
  ---  lexical states, charmap
  
    /* error codes */
@@ -4155,9 +4155,8 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skel
 +  ];
  
  --- isFinal list
-   /** the input device */
+-  /** the input device */
 -  private java.io.Reader zzReader;
-+  var zzReader;
  
    /** the current state of the DFA */
 -  private int zzState;
@@ -4220,7 +4219,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skel
  
  --- user class code
  
-@@ -88,13 +88,17 @@
+@@ -88,13 +86,17 @@
     * 
     * @exception   java.io.IOException  if any I/O-Error occurs
     */
@@ -4242,7 +4241,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skel
  
        /* translate stored positions */
        zzEndRead-= zzStartRead;
-@@ -106,119 +110,51 @@
+@@ -106,119 +108,51 @@
      /* is the buffer big enough? */
      if (zzCurrentPos >= zzBuffer.length) {
        /* if not: blow it up */
@@ -4382,7 +4381,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skel
      return zzMarkedPos-zzStartRead;
    }
  
-@@ -238,11 +174,11 @@
+@@ -238,11 +172,11 @@
     * @param   errorCode  the code of the errormessage to display
     */
  --- zzScanError declaration
@@ -4396,7 +4395,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skel
        message = ZZ_ERROR_MSG[ZZ_UNKNOWN_ERROR];
      }
  
-@@ -275,15 +211,15 @@
+@@ -275,15 +209,15 @@
     * @exception   java.io.IOException  if any I/O-Error occurs
     */
  --- yylex declaration
@@ -4421,7 +4420,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skel
  
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/test/java/jflex/PackEmitterTest.java ../../jflex_trunk-js/jflex/src/test/java/jflex/PackEmitterTest.java
 --- ../../jflex_trunk/jflex/src/test/java/jflex/PackEmitterTest.java	2013-02-26 20:32:41.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/test/java/jflex/PackEmitterTest.java	2013-03-04 13:17:56.532716658 +0200
++++ ../../jflex_trunk-js/jflex/src/test/java/jflex/PackEmitterTest.java	2013-03-04 19:56:32.101069799 +0200
 @@ -15,53 +15,50 @@ import junit.framework.TestCase;
   * PackEmitterTest
   * 

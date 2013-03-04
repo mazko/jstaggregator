@@ -3923,8 +3923,6 @@ function FlexTokenizer(input, progress) {
 	  }
 	
 	  var ZZ_ATTRIBUTE = zzUnpackAttribute();
-	  /** the input device */
-	  var zzReader;
 	
 	  /** the current state of the DFA */
 	  var zzState = 0;
