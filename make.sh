@@ -1,6 +1,6 @@
 #make standalone FlexTokenizer.js
-#rm jflex/UAX29URLEmailTokenizerImpl.js
-#java -jar jflex/jflex-1.5.0-SNAPSHOT.jar jflex/UAX29URLEmailTokenizerImpl.jflex
+rm jflex/UAX29URLEmailTokenizerImpl.js
+java -jar jflex/jflex-1.5.0-SNAPSHOT.jar jflex/UAX29URLEmailTokenizerImpl.jflex
 
 STANDALONE=js/FlexTokenizer.js
 

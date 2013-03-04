@@ -36,7 +36,7 @@
 					}
 				}
 
-                                var tokenStream = new ShingleStopFilter(new TestTokenStream(aData), stopwords, maxShingleSz, maxSzShinglesFIFO), res = [], offset = [], token;
+				var tokenStream = new ShingleStopFilter(new TestTokenStream(aData), stopwords, maxShingleSz, maxSzShinglesFIFO), res = [], offset = [], token;
 				while (token = tokenStream.incrementToken()) {
 					res.push(token.term);
 					offset.push(token.offset);

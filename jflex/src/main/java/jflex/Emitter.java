@@ -41,8 +41,8 @@ import java.util.Map;
 final public class Emitter {
 
 	// bit masks for state attributes
-//	static final private int FINAL = 1;
-//	static final private int NOLOOK = 8;
+	static final private int FINAL = 1;
+	static final private int NOLOOK = 8;
 
 	static final private String date = (new SimpleDateFormat())
 			.format(new Date());
@@ -67,9 +67,9 @@ final public class Emitter {
 	private CharSet noTarget[];
 
 	// for row killing:
-//	private int numRows;
-//	private int[] rowMap;
-//	private boolean[] rowKilled;
+	private int numRows;
+	private int[] rowMap;
+	private boolean[] rowKilled;
 
 	// for col killing:
 	private int numCols;
@@ -575,41 +575,41 @@ final public class Emitter {
 		println("  ];");
 	}
 
-//	private void emitDynamicInit() {
-//
-//		int count = 0;
-//		int value = dfa.table[0][0];
-//
-//		println("  /** ");
-//		println("   * The transition table of the DFA");
-//		println("   */");
-//
-//		CountEmitter e = new CountEmitter("Trans");
-//		e.setValTranslation(+1); // allow vals in [-1, 0xFFFE]
-//		e.emitInit();
-//
-//		for (int i = 0; i < dfa.numStates; i++) {
-//			if (!rowKilled[i]) {
-//				for (int c = 0; c < dfa.numInput; c++) {
-//					if (!colKilled[c]) {
-//						if (dfa.table[i][c] == value) {
-//							count++;
-//						} else {
-//							e.emit(count, value);
-//
-//							count = 1;
-//							value = dfa.table[i][c];
-//						}
-//					}
-//				}
-//			}
-//		}
-//
-//		e.emit(count, value);
-//		e.emitUnpack();
-//
-//		println(e.toString());
-//	}
+	private void emitDynamicInit() {
+
+		int count = 0;
+		int value = dfa.table[0][0];
+
+		println("  /** ");
+		println("   * The transition table of the DFA");
+		println("   */");
+
+		CountEmitter e = new CountEmitter("Trans");
+		e.setValTranslation(+1); // allow vals in [-1, 0xFFFE]
+		e.emitInit();
+
+		for (int i = 0; i < dfa.numStates; i++) {
+			if (!rowKilled[i]) {
+				for (int c = 0; c < dfa.numInput; c++) {
+					if (!colKilled[c]) {
+						if (dfa.table[i][c] == value) {
+							count++;
+						} else {
+							e.emit(count, value);
+
+							count = 1;
+							value = dfa.table[i][c];
+						}
+					}
+				}
+			}
+		}
+
+		e.emit(count, value);
+		e.emitUnpack();
+
+		println(e.toString());
+	}
 
 	private void emitCharMapInitFunction() {
 
@@ -645,39 +645,40 @@ final public class Emitter {
 		println("  }");
 	}
 
-//	private void emitZZTrans() {
-//
-//		int i, c;
-//		int n = 0;
-//
-//		println("  /** ");
-//		println("   * The transition table of the DFA");
-//		println("   */");
+	private void emitZZTrans() {
+
+		int i, c;
+		int n = 0;
+
+		println("  /** ");
+		println("   * The transition table of the DFA");
+		println("   */");
 //		println("  private static final int ZZ_TRANS [] = {");
-//
-//		print("    ");
-//		for (i = 0; i < dfa.numStates; i++) {
-//
-//			if (!rowKilled[i]) {
-//				for (c = 0; c < dfa.numInput; c++) {
-//					if (!colKilled[c]) {
-//						if (n >= 10) {
-//							println();
-//							print("    ");
-//							n = 0;
-//						}
-//						print(dfa.table[i][c]);
-//						if (i != dfa.numStates - 1 || c != dfa.numInput - 1)
-//							print(", ");
-//						n++;
-//					}
-//				}
-//			}
-//		}
-//
-//		println();
-//		println("  };");
-//	}
+		println("  var ZZ_TRANS = [");
+
+		print("    ");
+		for (i = 0; i < dfa.numStates; i++) {
+
+			if (!rowKilled[i]) {
+				for (c = 0; c < dfa.numInput; c++) {
+					if (!colKilled[c]) {
+						if (n >= 10) {
+							println();
+							print("    ");
+							n = 0;
+						}
+						print(dfa.table[i][c]);
+						if (i != dfa.numStates - 1 || c != dfa.numInput - 1)
+							print(", ");
+						n++;
+					}
+				}
+			}
+		}
+
+		println();
+		println("  ];");
+	}
 
 	private void emitCharMapArrayUnPacked() {
 
@@ -797,57 +798,57 @@ final public class Emitter {
 		}
 	}
 
-//	private void emitRowMapArray() {		
-//		println("");
-//		println("  /** ");
-//		println("   * Translates a state to a row index in the transition table");
-//		println("   */");
-//
-//		HiLowEmitter e = new HiLowEmitter("RowMap");
-//		e.emitInit();
-//		for (int i = 0; i < dfa.numStates; i++) {
-//			e.emit(rowMap[i] * numCols);
-//		}
-//		e.emitUnpack();
-//		println(e.toString());
-//	}
+	private void emitRowMapArray() {		
+		println("");
+		println("  /** ");
+		println("   * Translates a state to a row index in the transition table");
+		println("   */");
 
-//	private void emitAttributes() {
-//		println("  /**");
-//		println("   * ZZ_ATTRIBUTE[aState] contains the attributes of state <code>aState</code>");
-//		println("   */");
-//
-//		CountEmitter e = new CountEmitter("Attribute");
-//		e.emitInit();
-//
-//		int count = 1;
-//		int value = 0;
-//		if (dfa.isFinal[0])
-//			value = FINAL;
-//		if (!isTransition[0])
-//			value |= NOLOOK;
-//
-//		for (int i = 1; i < dfa.numStates; i++) {
-//			int attribute = 0;
-//			if (dfa.isFinal[i])
-//				attribute = FINAL;
-//			if (!isTransition[i])
-//				attribute |= NOLOOK;
-//
-//			if (value == attribute) {
-//				count++;
-//			} else {
-//				e.emit(count, value);
-//				count = 1;
-//				value = attribute;
-//			}
-//		}
-//
-//		e.emit(count, value);
-//		e.emitUnpack();
-//
-//		println(e.toString());
-//	}
+		HiLowEmitter e = new HiLowEmitter("RowMap");
+		e.emitInit();
+		for (int i = 0; i < dfa.numStates; i++) {
+			e.emit(rowMap[i] * numCols);
+		}
+		e.emitUnpack();
+		println(e.toString());
+	}
+
+	private void emitAttributes() {
+		println("  /**");
+		println("   * ZZ_ATTRIBUTE[aState] contains the attributes of state <code>aState</code>");
+		println("   */");
+
+		CountEmitter e = new CountEmitter("Attribute");
+		e.emitInit();
+
+		int count = 1;
+		int value = 0;
+		if (dfa.isFinal[0])
+			value = FINAL;
+		if (!isTransition[0])
+			value |= NOLOOK;
+
+		for (int i = 1; i < dfa.numStates; i++) {
+			int attribute = 0;
+			if (dfa.isFinal[i])
+				attribute = FINAL;
+			if (!isTransition[i])
+				attribute |= NOLOOK;
+
+			if (value == attribute) {
+				count++;
+			} else {
+				e.emit(count, value);
+				count = 1;
+				value = attribute;
+			}
+		}
+
+		e.emit(count, value);
+		e.emitUnpack();
+
+		println(e.toString());
+	}
 
 	private void emitClassCode() {
 		if (scanner.classCode != null) {
@@ -1030,12 +1031,12 @@ final public class Emitter {
 		skel.emitNext();
 
 		if (scanner.useRowMap) {
-			throw new UnsupportedOperationException(
-					"JavaScript target does not support useRowMap");
 //			println("    int [] zzTransL = ZZ_TRANS;");
 //			println("    int [] zzRowMapL = ZZ_ROWMAP;");
 //			println("    int [] zzAttrL = ZZ_ATTRIBUTE;");
-
+			println("    var zzTransL = ZZ_TRANS;");
+			println("    var zzRowMapL = ZZ_ROWMAP;");
+			println("    var zzAttrL = ZZ_ATTRIBUTE;");
 		}
 
 		skel.emitNext();
@@ -1165,39 +1166,39 @@ final public class Emitter {
 		}
 
 		if (scanner.useRowMap) {
-			throw new UnsupportedOperationException(
-					"JavaScript target does not support useRowMap");
-//			println("      // set up zzAction for empty match case:");
+			println("      // set up zzAction for empty match case:");
 //			println("      int zzAttributes = zzAttrL[zzState];");
-//			println("      if ( (zzAttributes & 1) == 1 ) {");
-//			println("        zzAction = zzState;");
-//			println("      }");
-//			println();
+			println("      var zzAttributes = zzAttrL[zzState];");
+			println("      if ( (zzAttributes & 1) == 1 ) {");
+			println("        zzAction = zzState;");
+			println("      }");
+			println();
 		}
 
 		skel.emitNext();
 	}
 
-//	private void emitGetRowMapNext() {
-//		
+	private void emitGetRowMapNext() {
+		
 //		println("          int zzNext = zzTransL[ zzRowMapL[zzState] + zzCMapL[zzInput] ];");
-//		println("          if (zzNext == " + DFA.NO_TARGET
-//				+ ") break zzForAction;");
-//		println("          zzState = zzNext;");
-//		println();
-//
-//		println("          zzAttributes = zzAttrL[zzState];");
-//
-//		println("          if ( (zzAttributes & " + FINAL + ") == " + FINAL
-//				+ " ) {");
-//
-//		skel.emitNext();
-//
-//		println("            if ( (zzAttributes & " + NOLOOK + ") == " + NOLOOK
-//				+ " ) break zzForAction;");
-//
-//		skel.emitNext();
-//	}
+		println("          var zzNext = zzTransL[ zzRowMapL[zzState] + zzCMapL[zzInput] ];");
+		println("          if (zzNext == " + DFA.NO_TARGET
+				+ ") break zzForAction;");
+		println("          zzState = zzNext;");
+		println();
+
+		println("          zzAttributes = zzAttrL[zzState];");
+
+		println("          if ( (zzAttributes & " + FINAL + ") == " + FINAL
+				+ " ) {");
+
+		skel.emitNext();
+
+		println("            if ( (zzAttributes & " + NOLOOK + ") == " + NOLOOK
+				+ " ) break zzForAction;");
+
+		skel.emitNext();
+	}
 
 	private void emitTransitionTable() {
 		transformTransitionTable();
@@ -1649,42 +1650,42 @@ final public class Emitter {
 		} // for i
 	}
 
-//	private void reduceRows() {
-//		rowMap = new int[dfa.numStates];
-//		rowKilled = new boolean[dfa.numStates];
-//
-//		int i, j, k;
-//		int translate = 0;
-//		boolean equal;
-//
-//		numRows = dfa.numStates;
-//
-//		// i is the state to add to the new table
-//		for (i = 0; i < dfa.numStates; i++) {
-//
-//			rowMap[i] = i - translate;
-//
-//			// check if state i can be removed (i.e. already
-//			// exists in entries 0..i-1)
-//			for (j = 0; j < i; j++) {
-//
-//				// test for equality:
-//				k = -1;
-//				equal = true;
-//				while (equal && ++k < dfa.numInput)
-//					equal = dfa.table[i][k] == dfa.table[j][k];
-//
-//				if (equal) {
-//					translate++;
-//					rowMap[i] = rowMap[j];
-//					rowKilled[i] = true;
-//					numRows--;
-//					break;
-//				} // if
-//			} // for j
-//		} // for i
-//
-//	}
+	private void reduceRows() {
+		rowMap = new int[dfa.numStates];
+		rowKilled = new boolean[dfa.numStates];
+
+		int i, j, k;
+		int translate = 0;
+		boolean equal;
+
+		numRows = dfa.numStates;
+
+		// i is the state to add to the new table
+		for (i = 0; i < dfa.numStates; i++) {
+
+			rowMap[i] = i - translate;
+
+			// check if state i can be removed (i.e. already
+			// exists in entries 0..i-1)
+			for (j = 0; j < i; j++) {
+
+				// test for equality:
+				k = -1;
+				equal = true;
+				while (equal && ++k < dfa.numInput)
+					equal = dfa.table[i][k] == dfa.table[j][k];
+
+				if (equal) {
+					translate++;
+					rowMap[i] = rowMap[j];
+					rowKilled[i] = true;
+					numRows--;
+					break;
+				} // if
+			} // for j
+		} // for i
+
+	}
 
 	/**
 	 * Set up EOF code section according to scanner.eofcode
@@ -1735,24 +1736,20 @@ final public class Emitter {
 		emitActionTable();
 
 		if (scanner.useRowMap) {
-			throw new UnsupportedOperationException(
-					"JavaScript target does not support useRowMap");
-//			reduceRows();
-//
-//			emitRowMapArray();
-//
-//			if (scanner.packed)
-//				emitDynamicInit();
-//			else
-//				emitZZTrans();
+			reduceRows();
+
+			emitRowMapArray();
+
+			if (scanner.packed)
+				emitDynamicInit();
+			else
+				emitZZTrans();
 		}
 
 		skel.emitNext();
 
 		if (scanner.useRowMap)
-			throw new UnsupportedOperationException(
-					"JavaScript target does not support useRowMap");
-//			emitAttributes();
+			emitAttributes();
 
 		skel.emitNext();
 
@@ -1781,9 +1778,7 @@ final public class Emitter {
 		emitNextInput();
 
 		if (scanner.useRowMap)
-			throw new UnsupportedOperationException(
-					"JavaScript target does not support useRowMap");
-//			emitGetRowMapNext();
+			emitGetRowMapNext();
 		else
 			emitTransitionTable();
 

@@ -38,7 +38,6 @@
 %unicode 6.1
 %class UAX29URLEmailTokenizerImpl
 %function getNextToken
-%switch
 %char
 %buffer 4096
 

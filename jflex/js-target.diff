@@ -1,6 +1,6 @@
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/CountEmitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/CountEmitter.java
 --- ../../jflex_trunk/jflex/src/main/java/jflex/CountEmitter.java	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/CountEmitter.java	2013-02-27 21:36:05.534099223 +0200
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/CountEmitter.java	2013-03-04 13:17:56.520716655 +0200
 @@ -7,98 +7,124 @@
   *                                                                         *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -214,8 +214,8 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/CountEmit
  }
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/Emitter.java
 --- ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.java	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/Emitter.java	2013-02-27 21:36:05.558099223 +0200
-@@ -7,1632 +7,1805 @@
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/Emitter.java	2013-03-04 14:08:13.512752164 +0200
+@@ -7,1632 +7,1800 @@
   *                                                                         *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
  
@@ -1871,8 +1871,8 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
 -    out.close();
 -  }
 +	// bit masks for state attributes
-+//	static final private int FINAL = 1;
-+//	static final private int NOLOOK = 8;
++	static final private int FINAL = 1;
++	static final private int NOLOOK = 8;
 +
 +	static final private String date = (new SimpleDateFormat())
 +			.format(new Date());
@@ -1897,9 +1897,9 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
 +	private CharSet noTarget[];
 +
 +	// for row killing:
-+//	private int numRows;
-+//	private int[] rowMap;
-+//	private boolean[] rowKilled;
++	private int numRows;
++	private int[] rowMap;
++	private boolean[] rowKilled;
 +
 +	// for col killing:
 +	private int numCols;
@@ -2405,41 +2405,41 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
 +		println("  ];");
 +	}
 +
-+//	private void emitDynamicInit() {
-+//
-+//		int count = 0;
-+//		int value = dfa.table[0][0];
-+//
-+//		println("  /** ");
-+//		println("   * The transition table of the DFA");
-+//		println("   */");
-+//
-+//		CountEmitter e = new CountEmitter("Trans");
-+//		e.setValTranslation(+1); // allow vals in [-1, 0xFFFE]
-+//		e.emitInit();
-+//
-+//		for (int i = 0; i < dfa.numStates; i++) {
-+//			if (!rowKilled[i]) {
-+//				for (int c = 0; c < dfa.numInput; c++) {
-+//					if (!colKilled[c]) {
-+//						if (dfa.table[i][c] == value) {
-+//							count++;
-+//						} else {
-+//							e.emit(count, value);
-+//
-+//							count = 1;
-+//							value = dfa.table[i][c];
-+//						}
-+//					}
-+//				}
-+//			}
-+//		}
-+//
-+//		e.emit(count, value);
-+//		e.emitUnpack();
-+//
-+//		println(e.toString());
-+//	}
++	private void emitDynamicInit() {
++
++		int count = 0;
++		int value = dfa.table[0][0];
++
++		println("  /** ");
++		println("   * The transition table of the DFA");
++		println("   */");
++
++		CountEmitter e = new CountEmitter("Trans");
++		e.setValTranslation(+1); // allow vals in [-1, 0xFFFE]
++		e.emitInit();
++
++		for (int i = 0; i < dfa.numStates; i++) {
++			if (!rowKilled[i]) {
++				for (int c = 0; c < dfa.numInput; c++) {
++					if (!colKilled[c]) {
++						if (dfa.table[i][c] == value) {
++							count++;
++						} else {
++							e.emit(count, value);
++
++							count = 1;
++							value = dfa.table[i][c];
++						}
++					}
++				}
++			}
++		}
++
++		e.emit(count, value);
++		e.emitUnpack();
++
++		println(e.toString());
++	}
 +
 +	private void emitCharMapInitFunction() {
 +
@@ -2475,39 +2475,40 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
 +		println("  }");
 +	}
 +
-+//	private void emitZZTrans() {
-+//
-+//		int i, c;
-+//		int n = 0;
-+//
-+//		println("  /** ");
-+//		println("   * The transition table of the DFA");
-+//		println("   */");
++	private void emitZZTrans() {
++
++		int i, c;
++		int n = 0;
++
++		println("  /** ");
++		println("   * The transition table of the DFA");
++		println("   */");
 +//		println("  private static final int ZZ_TRANS [] = {");
-+//
-+//		print("    ");
-+//		for (i = 0; i < dfa.numStates; i++) {
-+//
-+//			if (!rowKilled[i]) {
-+//				for (c = 0; c < dfa.numInput; c++) {
-+//					if (!colKilled[c]) {
-+//						if (n >= 10) {
-+//							println();
-+//							print("    ");
-+//							n = 0;
-+//						}
-+//						print(dfa.table[i][c]);
-+//						if (i != dfa.numStates - 1 || c != dfa.numInput - 1)
-+//							print(", ");
-+//						n++;
-+//					}
-+//				}
-+//			}
-+//		}
-+//
-+//		println();
-+//		println("  };");
-+//	}
++		println("  var ZZ_TRANS = [");
++
++		print("    ");
++		for (i = 0; i < dfa.numStates; i++) {
++
++			if (!rowKilled[i]) {
++				for (c = 0; c < dfa.numInput; c++) {
++					if (!colKilled[c]) {
++						if (n >= 10) {
++							println();
++							print("    ");
++							n = 0;
++						}
++						print(dfa.table[i][c]);
++						if (i != dfa.numStates - 1 || c != dfa.numInput - 1)
++							print(", ");
++						n++;
++					}
++				}
++			}
++		}
++
++		println();
++		println("  ];");
++	}
 +
 +	private void emitCharMapArrayUnPacked() {
 +
@@ -2627,57 +2628,57 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
 +		}
 +	}
 +
-+//	private void emitRowMapArray() {		
-+//		println("");
-+//		println("  /** ");
-+//		println("   * Translates a state to a row index in the transition table");
-+//		println("   */");
-+//
-+//		HiLowEmitter e = new HiLowEmitter("RowMap");
-+//		e.emitInit();
-+//		for (int i = 0; i < dfa.numStates; i++) {
-+//			e.emit(rowMap[i] * numCols);
-+//		}
-+//		e.emitUnpack();
-+//		println(e.toString());
-+//	}
++	private void emitRowMapArray() {		
++		println("");
++		println("  /** ");
++		println("   * Translates a state to a row index in the transition table");
++		println("   */");
 +
-+//	private void emitAttributes() {
-+//		println("  /**");
-+//		println("   * ZZ_ATTRIBUTE[aState] contains the attributes of state <code>aState</code>");
-+//		println("   */");
-+//
-+//		CountEmitter e = new CountEmitter("Attribute");
-+//		e.emitInit();
-+//
-+//		int count = 1;
-+//		int value = 0;
-+//		if (dfa.isFinal[0])
-+//			value = FINAL;
-+//		if (!isTransition[0])
-+//			value |= NOLOOK;
-+//
-+//		for (int i = 1; i < dfa.numStates; i++) {
-+//			int attribute = 0;
-+//			if (dfa.isFinal[i])
-+//				attribute = FINAL;
-+//			if (!isTransition[i])
-+//				attribute |= NOLOOK;
-+//
-+//			if (value == attribute) {
-+//				count++;
-+//			} else {
-+//				e.emit(count, value);
-+//				count = 1;
-+//				value = attribute;
-+//			}
-+//		}
-+//
-+//		e.emit(count, value);
-+//		e.emitUnpack();
-+//
-+//		println(e.toString());
-+//	}
++		HiLowEmitter e = new HiLowEmitter("RowMap");
++		e.emitInit();
++		for (int i = 0; i < dfa.numStates; i++) {
++			e.emit(rowMap[i] * numCols);
++		}
++		e.emitUnpack();
++		println(e.toString());
++	}
++
++	private void emitAttributes() {
++		println("  /**");
++		println("   * ZZ_ATTRIBUTE[aState] contains the attributes of state <code>aState</code>");
++		println("   */");
++
++		CountEmitter e = new CountEmitter("Attribute");
++		e.emitInit();
++
++		int count = 1;
++		int value = 0;
++		if (dfa.isFinal[0])
++			value = FINAL;
++		if (!isTransition[0])
++			value |= NOLOOK;
++
++		for (int i = 1; i < dfa.numStates; i++) {
++			int attribute = 0;
++			if (dfa.isFinal[i])
++				attribute = FINAL;
++			if (!isTransition[i])
++				attribute |= NOLOOK;
++
++			if (value == attribute) {
++				count++;
++			} else {
++				e.emit(count, value);
++				count = 1;
++				value = attribute;
++			}
++		}
++
++		e.emit(count, value);
++		e.emitUnpack();
++
++		println(e.toString());
++	}
 +
 +	private void emitClassCode() {
 +		if (scanner.classCode != null) {
@@ -2860,12 +2861,12 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
 +		skel.emitNext();
 +
 +		if (scanner.useRowMap) {
-+			throw new UnsupportedOperationException(
-+					"JavaScript target does not support useRowMap");
 +//			println("    int [] zzTransL = ZZ_TRANS;");
 +//			println("    int [] zzRowMapL = ZZ_ROWMAP;");
 +//			println("    int [] zzAttrL = ZZ_ATTRIBUTE;");
-+
++			println("    var zzTransL = ZZ_TRANS;");
++			println("    var zzRowMapL = ZZ_ROWMAP;");
++			println("    var zzAttrL = ZZ_ATTRIBUTE;");
 +		}
 +
 +		skel.emitNext();
@@ -2995,39 +2996,39 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
 +		}
 +
 +		if (scanner.useRowMap) {
-+			throw new UnsupportedOperationException(
-+					"JavaScript target does not support useRowMap");
-+//			println("      // set up zzAction for empty match case:");
++			println("      // set up zzAction for empty match case:");
 +//			println("      int zzAttributes = zzAttrL[zzState];");
-+//			println("      if ( (zzAttributes & 1) == 1 ) {");
-+//			println("        zzAction = zzState;");
-+//			println("      }");
-+//			println();
++			println("      var zzAttributes = zzAttrL[zzState];");
++			println("      if ( (zzAttributes & 1) == 1 ) {");
++			println("        zzAction = zzState;");
++			println("      }");
++			println();
 +		}
 +
 +		skel.emitNext();
 +	}
 +
-+//	private void emitGetRowMapNext() {
-+//		
++	private void emitGetRowMapNext() {
++		
 +//		println("          int zzNext = zzTransL[ zzRowMapL[zzState] + zzCMapL[zzInput] ];");
-+//		println("          if (zzNext == " + DFA.NO_TARGET
-+//				+ ") break zzForAction;");
-+//		println("          zzState = zzNext;");
-+//		println();
-+//
-+//		println("          zzAttributes = zzAttrL[zzState];");
-+//
-+//		println("          if ( (zzAttributes & " + FINAL + ") == " + FINAL
-+//				+ " ) {");
-+//
-+//		skel.emitNext();
-+//
-+//		println("            if ( (zzAttributes & " + NOLOOK + ") == " + NOLOOK
-+//				+ " ) break zzForAction;");
-+//
-+//		skel.emitNext();
-+//	}
++		println("          var zzNext = zzTransL[ zzRowMapL[zzState] + zzCMapL[zzInput] ];");
++		println("          if (zzNext == " + DFA.NO_TARGET
++				+ ") break zzForAction;");
++		println("          zzState = zzNext;");
++		println();
++
++		println("          zzAttributes = zzAttrL[zzState];");
++
++		println("          if ( (zzAttributes & " + FINAL + ") == " + FINAL
++				+ " ) {");
++
++		skel.emitNext();
++
++		println("            if ( (zzAttributes & " + NOLOOK + ") == " + NOLOOK
++				+ " ) break zzForAction;");
++
++		skel.emitNext();
++	}
 +
 +	private void emitTransitionTable() {
 +		transformTransitionTable();
@@ -3479,42 +3480,42 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
 +		} // for i
 +	}
 +
-+//	private void reduceRows() {
-+//		rowMap = new int[dfa.numStates];
-+//		rowKilled = new boolean[dfa.numStates];
-+//
-+//		int i, j, k;
-+//		int translate = 0;
-+//		boolean equal;
-+//
-+//		numRows = dfa.numStates;
-+//
-+//		// i is the state to add to the new table
-+//		for (i = 0; i < dfa.numStates; i++) {
-+//
-+//			rowMap[i] = i - translate;
-+//
-+//			// check if state i can be removed (i.e. already
-+//			// exists in entries 0..i-1)
-+//			for (j = 0; j < i; j++) {
-+//
-+//				// test for equality:
-+//				k = -1;
-+//				equal = true;
-+//				while (equal && ++k < dfa.numInput)
-+//					equal = dfa.table[i][k] == dfa.table[j][k];
-+//
-+//				if (equal) {
-+//					translate++;
-+//					rowMap[i] = rowMap[j];
-+//					rowKilled[i] = true;
-+//					numRows--;
-+//					break;
-+//				} // if
-+//			} // for j
-+//		} // for i
-+//
-+//	}
++	private void reduceRows() {
++		rowMap = new int[dfa.numStates];
++		rowKilled = new boolean[dfa.numStates];
++
++		int i, j, k;
++		int translate = 0;
++		boolean equal;
++
++		numRows = dfa.numStates;
++
++		// i is the state to add to the new table
++		for (i = 0; i < dfa.numStates; i++) {
++
++			rowMap[i] = i - translate;
++
++			// check if state i can be removed (i.e. already
++			// exists in entries 0..i-1)
++			for (j = 0; j < i; j++) {
++
++				// test for equality:
++				k = -1;
++				equal = true;
++				while (equal && ++k < dfa.numInput)
++					equal = dfa.table[i][k] == dfa.table[j][k];
++
++				if (equal) {
++					translate++;
++					rowMap[i] = rowMap[j];
++					rowKilled[i] = true;
++					numRows--;
++					break;
++				} // if
++			} // for j
++		} // for i
++
++	}
 +
 +	/**
 +	 * Set up EOF code section according to scanner.eofcode
@@ -3565,24 +3566,20 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
 +		emitActionTable();
 +
 +		if (scanner.useRowMap) {
-+			throw new UnsupportedOperationException(
-+					"JavaScript target does not support useRowMap");
-+//			reduceRows();
-+//
-+//			emitRowMapArray();
-+//
-+//			if (scanner.packed)
-+//				emitDynamicInit();
-+//			else
-+//				emitZZTrans();
++			reduceRows();
++
++			emitRowMapArray();
++
++			if (scanner.packed)
++				emitDynamicInit();
++			else
++				emitZZTrans();
 +		}
 +
 +		skel.emitNext();
 +
 +		if (scanner.useRowMap)
-+			throw new UnsupportedOperationException(
-+					"JavaScript target does not support useRowMap");
-+//			emitAttributes();
++			emitAttributes();
 +
 +		skel.emitNext();
 +
@@ -3611,9 +3608,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
 +		emitNextInput();
 +
 +		if (scanner.useRowMap)
-+			throw new UnsupportedOperationException(
-+					"JavaScript target does not support useRowMap");
-+//			emitGetRowMapNext();
++			emitGetRowMapNext();
 +		else
 +			emitTransitionTable();
 +
@@ -3639,9 +3634,62 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
 +	}
  
  }
+diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/HiLowEmitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/HiLowEmitter.java
+--- ../../jflex_trunk/jflex/src/main/java/jflex/HiLowEmitter.java	2013-02-26 20:33:36.000000000 +0200
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/HiLowEmitter.java	2013-03-04 14:40:29.444774950 +0200
+@@ -38,28 +38,39 @@ public class HiLowEmitter extends PackEm
+     // close last string chunk:
+     println("\";");
+     nl();
+-    println("  private static int [] zzUnpack"+name+"() {");
+-    println("    int [] result = new int["+numEntries+"];");
+-    println("    int offset = 0;");
++//    println("  private static int [] zzUnpack"+name+"() {");
++//    println("    int [] result = new int["+numEntries+"];");
++//    println("    int offset = 0;");
++    println("  function zzUnpack"+name+"() {");
++    println("    var result = new Array("+numEntries+");");
++    println("    var offset = 0;");
+ 
+     for (int i = 0; i < chunks; i++) {
+-      println("    offset = zzUnpack"+name+"("+constName()+"_PACKED_"+i+", offset, result);");
++      println("    offset = zzUnpack"+name+"_helper("+constName()+"_PACKED_"+i+", offset, result);");
+     }
+ 
+     println("    return result;");
+     println("  }");
+ 
+     nl();
+-    println("  private static int zzUnpack"+name+"(String packed, int offset, int [] result) {");
+-    println("    int i = 0;  /* index in packed string  */");
+-    println("    int j = offset;  /* index in unpacked array */");
+-    println("    int l = packed.length();");
++//    println("  private static int zzUnpack"+name+"(String packed, int offset, int [] result) {");
++//    println("    int i = 0;  /* index in packed string  */");
++//    println("    int j = offset;  /* index in unpacked array */");
++//    println("    int l = packed.length();");
++    println("  function zzUnpack"+name+"_helper(packed, offset, result) {");
++    println("    var i = 0;  /* index in packed string  */");
++    println("    var j = offset;  /* index in unpacked array */");
++    println("    var l = packed.length;");
+     println("    while (i < l) {");
+-    println("      int high = packed.charAt(i++) << 16;");
+-    println("      result[j++] = high | packed.charAt(i++);");
++//    println("      int high = packed.charAt(i++) << 16;");
++//    println("      result[j++] = high | packed.charAt(i++);");
++    println("      var high = packed.charCodeAt(i++) << 16;");
++    println("      result[j++] = high | packed.charCodeAt(i++);");
+     println("    }");
+     println("    return j;");
+     println("  }");
++
++    super.emitUnpack();
+   }
+ 
+   /**
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/PackEmitter.java
 --- ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitter.java	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/PackEmitter.java	2013-02-27 21:36:05.558099223 +0200
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/PackEmitter.java	2013-03-04 13:17:56.528716658 +0200
 @@ -7,213 +7,235 @@
   *                                                                         *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -4077,7 +4125,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitt
  }
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skeleton.default ../../jflex_trunk-js/jflex/src/main/resources/jflex/skeleton.default
 --- ../../jflex_trunk/jflex/src/main/resources/jflex/skeleton.default	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/resources/jflex/skeleton.default	2013-02-27 21:38:39.878101040 +0200
++++ ../../jflex_trunk-js/jflex/src/main/resources/jflex/skeleton.default	2013-03-04 13:17:56.528716658 +0200
 @@ -1,6 +1,6 @@
  
    /** This character denotes the end of file */
@@ -4373,7 +4421,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skel
  
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/test/java/jflex/PackEmitterTest.java ../../jflex_trunk-js/jflex/src/test/java/jflex/PackEmitterTest.java
 --- ../../jflex_trunk/jflex/src/test/java/jflex/PackEmitterTest.java	2013-02-26 20:32:41.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/test/java/jflex/PackEmitterTest.java	2013-02-27 21:36:05.562099224 +0200
++++ ../../jflex_trunk-js/jflex/src/test/java/jflex/PackEmitterTest.java	2013-03-04 13:17:56.532716658 +0200
 @@ -15,53 +15,50 @@ import junit.framework.TestCase;
   * PackEmitterTest
   * 
