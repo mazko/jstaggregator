@@ -55,7 +55,8 @@ public abstract class PackEmitter {
 	// String constants are stored as UTF8 with 2 bytes length
 	// field in class files. One Unicode char can be up to 3
 	// UTF8 bytes. 64K max and two chars safety.
-	private static final int maxSize = 0xFFFF - 6;
+	//private static final int maxSize = 0xFFFF - 6;
+	private static final int maxSize = 0xFFF; // Google Chrome maximum call stack size exceeded with 0xFFFF - 6
 
 	/** indent for string lines */
 	private static final String indent = "    ";

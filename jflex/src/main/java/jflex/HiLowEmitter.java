@@ -7,6 +7,14 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * JavaScript target adapted for http://TagsOnFlags.com/                   *
+ * Oleg Mazko.                                                             *
+ *                                                                         *
+ * License: BSD                                                            *
+ *                                                                         *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 package jflex;
 
 /**

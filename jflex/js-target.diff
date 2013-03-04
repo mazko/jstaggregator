@@ -1,6 +1,6 @@
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/CountEmitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/CountEmitter.java
 --- ../../jflex_trunk/jflex/src/main/java/jflex/CountEmitter.java	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/CountEmitter.java	2013-03-04 19:56:32.073069798 +0200
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/CountEmitter.java	2013-03-04 22:41:38.333558849 +0200
 @@ -7,98 +7,124 @@
   *                                                                         *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -214,7 +214,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/CountEmit
  }
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/Emitter.java
 --- ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.java	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/Emitter.java	2013-03-04 19:56:32.097069799 +0200
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/Emitter.java	2013-03-04 22:41:38.341558850 +0200
 @@ -7,1632 +7,1800 @@
   *                                                                         *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -3636,8 +3636,23 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/Emitter.j
  }
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/HiLowEmitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/HiLowEmitter.java
 --- ../../jflex_trunk/jflex/src/main/java/jflex/HiLowEmitter.java	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/HiLowEmitter.java	2013-03-04 19:56:32.097069799 +0200
-@@ -38,28 +38,39 @@ public class HiLowEmitter extends PackEm
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/HiLowEmitter.java	2013-03-04 22:43:13.461563547 +0200
+@@ -7,6 +7,14 @@
+  *                                                                         *
+  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ 
++/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
++ * JavaScript target adapted for http://TagsOnFlags.com/                   *
++ * Oleg Mazko.                                                             *
++ *                                                                         *
++ * License: BSD                                                            *
++ *                                                                         *
++ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
++
+ package jflex;
+ 
+ /**
+@@ -38,28 +46,39 @@ public class HiLowEmitter extends PackEm
      // close last string chunk:
      println("\";");
      nl();
@@ -3689,8 +3704,8 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/HiLowEmit
    /**
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitter.java ../../jflex_trunk-js/jflex/src/main/java/jflex/PackEmitter.java
 --- ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitter.java	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/java/jflex/PackEmitter.java	2013-03-04 19:56:32.097069799 +0200
-@@ -7,213 +7,235 @@
++++ ../../jflex_trunk-js/jflex/src/main/java/jflex/PackEmitter.java	2013-03-04 22:55:24.825599651 +0200
+@@ -7,213 +7,236 @@
   *                                                                         *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
  
@@ -3939,7 +3954,8 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitt
 +	// String constants are stored as UTF8 with 2 bytes length
 +	// field in class files. One Unicode char can be up to 3
 +	// UTF8 bytes. 64K max and two chars safety.
-+	private static final int maxSize = 0xFFFF - 6;
++	//private static final int maxSize = 0xFFFF - 6;
++	private static final int maxSize = 0xFFF; // Google Chrome maximum call stack size exceeded with 0xFFFF - 6
 +
 +	/** indent for string lines */
 +	private static final String indent = "    ";
@@ -4125,7 +4141,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/java/jflex/PackEmitt
  }
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skeleton.default ../../jflex_trunk-js/jflex/src/main/resources/jflex/skeleton.default
 --- ../../jflex_trunk/jflex/src/main/resources/jflex/skeleton.default	2013-02-26 20:33:36.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/main/resources/jflex/skeleton.default	2013-03-04 19:58:29.909075615 +0200
++++ ../../jflex_trunk-js/jflex/src/main/resources/jflex/skeleton.default	2013-03-04 22:41:38.341558850 +0200
 @@ -1,6 +1,6 @@
  
    /** This character denotes the end of file */
@@ -4420,7 +4436,7 @@ diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/main/resources/jflex/skel
  
 diff -urp '--exclude=.svn' ../../jflex_trunk/jflex/src/test/java/jflex/PackEmitterTest.java ../../jflex_trunk-js/jflex/src/test/java/jflex/PackEmitterTest.java
 --- ../../jflex_trunk/jflex/src/test/java/jflex/PackEmitterTest.java	2013-02-26 20:32:41.000000000 +0200
-+++ ../../jflex_trunk-js/jflex/src/test/java/jflex/PackEmitterTest.java	2013-03-04 19:56:32.101069799 +0200
++++ ../../jflex_trunk-js/jflex/src/test/java/jflex/PackEmitterTest.java	2013-03-04 22:50:50.409586104 +0200
 @@ -15,53 +15,50 @@ import junit.framework.TestCase;
   * PackEmitterTest
   * 
