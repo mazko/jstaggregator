@@ -1,8 +1,8 @@
 // ==UserScript==
 
-// @name		TagsOnFlags
+// @name		AutoTagCloud
 // @description		Language identification button, tag cloud sidebar with styling.
-// @namespace		http://TagsOnFlags.com/
+// @namespace		http://AutoTagCloud.com/
 // @version		0.1
 // @include		*
 // @copyright		2013+, Oleg Mazko
@@ -446,7 +446,7 @@ if (document.body && isTopOrUsefulFrame()) {
     
     //--- trademark - open site in tab.
     nongreedyjsli.dblclick (function (zEvent) {
-        GM_openInTab("http://tagsonflags.com/");
+        GM_openInTab("http://AutoTagCloud.com/");
         zEvent.stopPropagation(); 
         zEvent.preventDefault();
     });
