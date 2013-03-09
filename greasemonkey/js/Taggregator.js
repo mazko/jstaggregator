@@ -1,6 +1,6 @@
 /*!
  * JavaScript tag cloud builder v0.2
- * http://tagsonflags.com/
+ * http://autotagcloud.com/
  *
  * Copyright 2013, Oleg Mazko
  * http://www.opensource.org/licenses/bsd-license.html
