@@ -157,7 +157,17 @@ function buildTagCloud(text, lng, ahref, sidebar, progress) {
                 
                 GM_log(forlog);
                 
-                tags_array.sort(function(a, b) {return b.offsetMatrix.length-a.offsetMatrix.length;});
+                tags_array.sort(function(a, b) {
+                    return (b.offsetMatrix.length - a.offsetMatrix.length) || 
+                        (text.charCodeAt(a.offsetMatrix[0][0].start) - text.charCodeAt(b.offsetMatrix[0][0].start));
+                });
+                
+                //tags_array.sort(function(a, b) {
+                //	var res = b.offsetMatrix.length - a.offsetMatrix.length;
+                //	if (res) return res;
+                //	var aFirst = text.charAt(a.offsetMatrix[0][0].start), bFirst = text.charAt(b.offsetMatrix[0][0].start);
+                //	return (aFirst < bFirst ? -1 : (aFirst > bFirst ? 1 : 0)); 
+                //});
                 
                 (function() {
                     var start = 0;
@@ -183,6 +193,7 @@ function buildTagCloud(text, lng, ahref, sidebar, progress) {
                                     var text = getOriginEntryText(value);
                                     if ($.inArray(text, res) === -1) {
                                         res.push(text);
+                                        GM_log(text + ": " + Array.prototype.map.call(text, function(x) { return x.charCodeAt(0); }));
                                     }
                                 });
                                 
