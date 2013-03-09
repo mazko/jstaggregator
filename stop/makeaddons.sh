@@ -12,7 +12,7 @@ do
 	LNG=`basename $FILE .ngp`
 	echo "/*!" > ../js/stopaddons/$LNG.js
 	echo " * $LNG stopwords addon for JavaScript tag cloud builder v0.2" >> ../js/stopaddons/$LNG.js
-	echo " * http://tagsonflags.com/" >> ../js/stopaddons/$LNG.js
+	echo " * http://autotagcloud.com/" >> ../js/stopaddons/$LNG.js
 	echo " *" >> ../js/stopaddons/$LNG.js
 	echo " * Copyright `date +'%Y.%m.%d'`, Oleg Mazko" >> ../js/stopaddons/$LNG.js
 	echo " * http://www.opensource.org/licenses/bsd-license.html" >> ../js/stopaddons/$LNG.js

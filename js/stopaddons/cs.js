@@ -1,8 +1,8 @@
 /*!
  * cs stopwords addon for JavaScript tag cloud builder v0.2
- * http://tagsonflags.com/
+ * http://autotagcloud.com/
  *
- * Copyright 2013.03.01, Oleg Mazko
+ * Copyright 2013.03.09, Oleg Mazko
  * http://www.opensource.org/licenses/bsd-license.html
  */
 (function() {

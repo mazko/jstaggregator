@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JavaScript target adapted for http://TagsOnFlags.com/                   *
+ * JavaScript target adapted for http://autotagcloud.com/                  *
  * Oleg Mazko.                                                             *
  *                                                                         *
  * License: BSD                                                            *
