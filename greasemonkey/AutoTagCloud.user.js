@@ -77,20 +77,24 @@
 // @resource tr http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/TR.png
 
 // @resource unknown http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/mars.png
+// @resource robosmile http://mazko.github.com/jstaggregator/greasemonkey/img/robosmile.png
 
-// @resource cssstyle http://mazko.github.com/jstaggregator/greasemonkey/css/style.css
+// @resource cssiframes http://mazko.github.com/jstaggregator/greasemonkey/css/iframes.css
+// @resource cssli http://mazko.github.com/jstaggregator/greasemonkey/css/li.css
+// @resource csssidebar http://mazko.github.com/jstaggregator/greasemonkey/css/sidebar.css
 
 // ==/UserScript==
 
 var _is_working = false;
 
-function buildTagCloud(text, lng, ahref, sidebar, progress) {
+function buildTagCloud(text, lng, ahref, iautotagcloud, sidebar, itagsidebar, progress) {
     var gwindow = $(window);
     if (_is_working) {
         _is_working = false;
         ahref.text("");
-        ahref.unbind("mouseenter");
+        iautotagcloud.unbind("mouseenter");
         gwindow.unbind();
+        itagsidebar.unbind();
         sidebar.unbind();
         return;
     }
@@ -120,34 +124,28 @@ function buildTagCloud(text, lng, ahref, sidebar, progress) {
                 var window_was_resized_when_sidebar_was_hidden = false;
                 
                 _is_working = false;
-                ahref.mouseenter(function() {
-                    sidebar.fadeIn(1000);
+                iautotagcloud.mouseenter(function() {
+                    itagsidebar.fadeIn(1000);
                     if (window_was_resized_when_sidebar_was_hidden) {
                         gwindow.resize(); // fire event to recalculate tags to fit in sidebar
                         window_was_resized_when_sidebar_was_hidden = false;
                     }
                 });
-                sidebar.mouseenter(function() {
-                    sidebar.unbind("mouseenter");
-                    sidebar.mouseleave(function() {
-                        sidebar.fadeOut(1000);
+                itagsidebar.mouseenter(function() {
+                    itagsidebar.unbind("mouseenter");
+                    itagsidebar.mouseleave(function() {
+                        itagsidebar.fadeOut(1000);
                     });
                 });
-                //sidebar.mousedown(function(zEvent) {
-                //    zEvent.preventDefault(); //--- prevent clear selection before click() event.
-                //});
-                sidebar.fadeIn(1000);
+                
+                itagsidebar.fadeIn(1000);
                 
                 ahref.text("");
                 sidebar.empty();
                 
-                var tag_box_wrapper = $('<div/>', {
-                    id: 'nongreedy-tags-wrapper'
-                }).appendTo(sidebar);
-                
                 var tag_box = $('<ul/>', {
                     class: 'tag_box'
-                }).appendTo(tag_box_wrapper);
+                }).appendTo(sidebar);
                 
                 var tags_array = [], forlog = [];
                 $.each( tokensMap, function( key, value ) {
@@ -174,8 +172,8 @@ function buildTagCloud(text, lng, ahref, sidebar, progress) {
                     
                     function sidebarAppendTagsUntillNoOverflow() {
                         
-                        if (tag_box.height() > tag_box_wrapper.height()) {
-                            GM_log("Append not require " + tag_box.height() + " t : s " + tag_box_wrapper.height());
+                        if (tag_box.height() > sidebar.height()) {
+                            GM_log("Append not require " + tag_box.height() + " t : s " + sidebar.height());
                             return;
                         }
                         
@@ -259,10 +257,10 @@ function buildTagCloud(text, lng, ahref, sidebar, progress) {
                                 zEvent.preventDefault();
                             });
                             
-                            if (tag_box.height() > tag_box_wrapper.height()) {
-                                GM_log("Last append overflowed. Back " + tag_box.height() + " t : s " + tag_box_wrapper.height());
+                            if (tag_box.height() > sidebar.height()) {
+                                GM_log("Last append overflowed. Back " + tag_box.height() + " t : s " + sidebar.height());
                                 last_appended.remove();
-                                GM_log(tag_box.height() + " t : s " + tag_box_wrapper.height());
+                                GM_log(tag_box.height() + " t : s " + sidebar.height());
                                 return false;
                             } else {
                                 start++;
@@ -278,13 +276,13 @@ function buildTagCloud(text, lng, ahref, sidebar, progress) {
                     sidebarNextPage();
                     
                     function sidebarRemoveTagsUntillOverflow() {
-                        if (tag_box.height() <= tag_box_wrapper.height()) {
-                            GM_log("Remove not require: " + tag_box.height() + " t : s " + tag_box_wrapper.height());
+                        if (tag_box.height() <= sidebar.height()) {
+                            GM_log("Remove not require: " + tag_box.height() + " t : s " + sidebar.height());
                             return;
                         }
                         $.each(tag_box.children().get().reverse(), function() {
-                            if (tag_box.height() <= tag_box_wrapper.height()) {
-                                GM_log("Last remove: " + tag_box.height() + " t : s " + tag_box_wrapper.height());
+                            if (tag_box.height() <= sidebar.height()) {
+                                GM_log("Last remove: " + tag_box.height() + " t : s " + sidebar.height());
                                 return false;
                             }
                             $(this).remove();
@@ -318,7 +316,7 @@ function buildTagCloud(text, lng, ahref, sidebar, progress) {
                         
                         /* if display:none skip calculations */
                         
-                        if (sidebar.is(':visible')) {
+                        if (itagsidebar.is(':visible')) {
                             GM_log("Resize triggered - fit tags in sidebar");
                             sidebarAppendTagsUntillNoOverflow();
                             sidebarRemoveTagsUntillOverflow();
@@ -339,10 +337,11 @@ function buildTagCloud(text, lng, ahref, sidebar, progress) {
                             
                             /* Close sidebar */
                             
-                            ahref.unbind("mouseenter");
+                            iautotagcloud.unbind("mouseenter");
+                            itagsidebar.unbind();
                             sidebar.unbind();
                             gwindow.unbind();
-                            sidebar.fadeOut(1000);
+                            itagsidebar.fadeOut(1000);
                         }
                         zEvent.stopPropagation();
                         zEvent.preventDefault();
@@ -397,18 +396,49 @@ function isTopOrUsefulFrame() {
 
 if (document.body && isTopOrUsefulFrame()) {
     
-    var nongreedyjsli = $('<a/>', {
-        id: 'nongreedy-jsli',
-        href: '#',
-        text: '^_^',
-        title: GM_info.script.name + ' v' + GM_info.script.version + ' BETA | ' + LanguageIdentifier.getSupportedLanguages()
+    //--- Style our newly added elements using CSS.
+    (function() {
+        var cssTxt  = GM_getResourceText("cssiframes");
+        GM_addStyle (cssTxt);
+    }());
+    
+    var autotagcloud = $('<div/>', {
+        id: 'li',
+        style: 'width: 24px; height: 24px; background-image: url(' + GM_getResourceURL('robosmile') + ')',
+        title: GM_info.script.name + ' v' + GM_info.script.version + ' RC1 | ' + LanguageIdentifier.getSupportedLanguages()
+    });
+    
+    var iautotagcloud = $('<iframe />', {
+        id: 'i-li-autotagcloud',
+        allowTransparency: 'true',
+        frameBorder: '0',
+        scrolling: 'no',
+        style: 'width: 34px; height: 34px;', // padding 2*5 + 24
+        src: 'about:blank'
+    }).load(function() {
+        
+        $(this).contents().find("head").append($("<style/>").attr('type', 'text/css').html(GM_getResourceText("cssli")));                 
+        $(this).contents().find("body").append(autotagcloud);
+        
     }).appendTo('body');
     
-    var nongreedysidebar = $('<div/>', {
-        id: 'nongreedy-sidebar'
+    var tagsidebar = $('<div/>', {
+        id: 'tags-wrapper'
+    });
+    
+    var itagsidebar = $('<iframe />', {
+        id: 'i-sidebar-autotagcloud',
+        frameBorder: '0',
+        scrolling: 'no',
+        src: 'about:blank'
+    }).load(function() {
+        
+        $(this).contents().find("head").append($("<style/>").attr('type', 'text/css').html(GM_getResourceText("csssidebar")));                 
+        $(this).contents().find("body").append(tagsidebar);
+        
     }).appendTo('body');
     
-    nongreedyjsli.click (function (zEvent) {
+    autotagcloud.click (function (zEvent) {
         
         /* http://help.dottoro.com/ljcvonpc.php */
         
@@ -437,34 +467,28 @@ if (document.body && isTopOrUsefulFrame()) {
             return selText;
         }
         
-        var text = getSelectedText() || $("body").clone().find("script,noscript,style,#nongreedy-jsli,#nongreedy-sidebar").remove().end().text();
+        var text = getSelectedText() || $("body").clone().find("script,noscript,style,#i-li-autotagcloud,#i-sidebar-autotagcloud").remove().end().text();
         
         var lng = LanguageIdentifier.identify(text).language, cntr = 0; 
-        buildTagCloud(text, lng, nongreedyjsli, nongreedysidebar, function(pos, total){if (!cntr--) {cntr = 5; nongreedyjsli.text(Math.round(100*pos/total) + " %");}});
-        nongreedyjsli.attr({
+        buildTagCloud(text, lng, autotagcloud, iautotagcloud, tagsidebar, itagsidebar, function(pos, total){if (!cntr--) {cntr = 5; autotagcloud.text(Math.round(100*pos/total) + " %");}});
+        autotagcloud.attr({
             title: 'ISO 639: ' + lng,
-            style: 'background-image: url(' + GM_getResourceURL(lng) + ')!important; background-repeat: no-repeat!important;background-position: 50% 50%!important;vertical-align: middle!important;line-height: 0!important;width: 64px!important;height:64px!important;border:none!important;background-color:transparent!important;'
+            style: 'background-image: url(' + GM_getResourceURL(lng) + '); width: 64px; height: 64px;'
+        });
+        
+        iautotagcloud.css({
+            width: '74px', // padding 2*5 + 64
+            height: '74px'
         });
         
         zEvent.stopPropagation();
         zEvent.preventDefault();
     });
     
-    //--- prevent clear selection before click() event. http://stackoverflow.com/questions/826782/css-rule-to-disable-text-selection-highlighting. css trick not work for trxtarea - still cleaning selection after click. Behind solution fix this, but i dont like it(same in sidebar.mousedown handler higher).
-    //nongreedyjsli.mousedown(function(zEvent) {
-    //    zEvent.preventDefault();
-    //});
-    
     //--- trademark - open site in tab.
-    nongreedyjsli.dblclick (function (zEvent) {
+    autotagcloud.dblclick (function (zEvent) {
         GM_openInTab("http://AutoTagCloud.com/");
         zEvent.stopPropagation(); 
         zEvent.preventDefault();
     });
-    //--- Style our newly added elements using CSS.
-    (function() {
-        var cssTxt  = GM_getResourceText("cssstyle");
-        GM_addStyle (cssTxt);
-    }());
 }
-

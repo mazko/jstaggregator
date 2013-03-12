@@ -1,0 +1,3 @@
+#ImageMagick
+#http://www.imagemagick.org/script/color.php
+convert -size 24x24 xc:transparent -font AvantGarde-Demi -pointsize 14 -weight bold -fill red3 -draw "text 0,16 '^_^'" robosmile.png
