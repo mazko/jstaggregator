@@ -8,7 +8,7 @@
 // @copyright		2013+, Oleg Mazko
 // @icon		http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/mars.png
 
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/jquery-1.9.1.min.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/3js/jquery-1.9.1.min.js
 // @require  http://mazko.github.com/jssnowball/lib/Snowball.js
 
 // @require  http://mazko.github.com/jstaggregator/greasemonkey/js/Taggregator.js
@@ -245,9 +245,20 @@ function buildTagCloud(text, lng, ahref, iautotagcloud, sidebar, itagsidebar, pr
                                 var sidebarparent = sidebar.parent();
                                 sidebar.detach();
                                 var searchitems = $(this).attr("title").split("\n");
+                                var uniqsearchitems = $.grep(searchitems, function(el, index) { 
+                                    return index == $.inArray(el, searchitems); 
+                                });
                                 try {
-                                    $.each(searchitems, function(index, value) {
-                                        doSearch(value);
+                                    $.each(uniqsearchitems, function(index, value) {
+                                        
+                                        /* https://bugzilla.mozilla.org/show_bug.cgi?id=481513 */
+                                        
+                                        if (value.length > 1 && $.trim(value)) {
+                                            GM_log("Highlighting: '" + value + "'");
+                                            doSearch(value);
+                                        } else {
+                                            GM_log("Skip highlight: '" + value + "'");
+                                        }
                                     });
                                 } catch (err) {
                                     GM_log("Error trying search/highlight tag '" + searchitems + "'. Err: " + err);
@@ -405,7 +416,7 @@ if (document.body && isTopOrUsefulFrame()) {
     var autotagcloud = $('<div/>', {
         id: 'li',
         style: 'width: 24px; height: 24px; background-image: url(' + GM_getResourceURL('robosmile') + ')',
-        title: GM_info.script.name + ' v' + GM_info.script.version + ' RC1 | ' + LanguageIdentifier.getSupportedLanguages()
+        title: GM_info.script.name + ' v' + GM_info.script.version + ' RC2 | ' + LanguageIdentifier.getSupportedLanguages()
     });
     
     var iautotagcloud = $('<iframe />', {
