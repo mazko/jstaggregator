@@ -223,12 +223,25 @@ function buildTagCloud(text, lng, ahref, iautotagcloud, sidebar, itagsidebar, pr
                                 function doSearch(text) {
                                     if (window.find && window.getSelection) {
                                         document.designMode = "on";
-                                        var sel = window.getSelection();
-                                        sel.collapse(document.body, 0);
-                                        
-                                        while (window.find(text)) {
-                                            document.execCommand("HiliteColor", false, "yellow");
-                                            sel.collapseToEnd();
+                                        try {
+                                            var sel = window.getSelection();
+                                            sel.collapse(document.body, 0);
+                                            
+                                            /* https://bugzilla.mozilla.org/show_bug.cgi?id=481513 */
+                                            
+                                            var watchdog = 1000; // for webkit
+                                            
+                                            while (--watchdog && window.find(text)) {
+                                                document.execCommand("HiliteColor", false, "yellow");
+                                                sel.collapseToEnd();
+                                            }
+                                            
+                                            if (!watchdog) {
+                                                GM_log("Too many highlights - force break.");
+                                            }
+                                            
+                                        } catch (err) {
+                                            GM_log("Error trying search/highlight. " + err);
                                         }
                                         document.designMode = "off";
                                     } else if (document.body.createTextRange) {
@@ -248,21 +261,17 @@ function buildTagCloud(text, lng, ahref, iautotagcloud, sidebar, itagsidebar, pr
                                 var uniqsearchitems = $.grep(searchitems, function(el, index) { 
                                     return index == $.inArray(el, searchitems); 
                                 });
-                                try {
-                                    $.each(uniqsearchitems, function(index, value) {
+                                
+                                $.each(uniqsearchitems, function(index, value) {
                                         
-                                        /* https://bugzilla.mozilla.org/show_bug.cgi?id=481513 */
-                                        
-                                        if (value.length > 1 && $.trim(value)) {
-                                            GM_log("Highlighting: '" + value + "'");
-                                            doSearch(value);
-                                        } else {
-                                            GM_log("Skip highlight: '" + value + "'");
-                                        }
-                                    });
-                                } catch (err) {
-                                    GM_log("Error trying search/highlight tag '" + searchitems + "'. Err: " + err);
-                                }
+                                    if (value.length > 1 && $.trim(value)) {
+                                        GM_log("Highlighting: '" + value + "'");
+                                        doSearch(value);
+                                    } else {
+                                        GM_log("Skip highlight: '" + value + "'");
+                                    }
+                                });
+
                                 sidebar.appendTo(sidebarparent);
                                 zEvent.stopPropagation();
                                 zEvent.preventDefault();
@@ -416,7 +425,7 @@ if (document.body && isTopOrUsefulFrame()) {
     var autotagcloud = $('<div/>', {
         id: 'li',
         style: 'width: 24px; height: 24px; background-image: url(' + GM_getResourceURL('robosmile') + ')',
-        title: GM_info.script.name + ' v' + GM_info.script.version + ' RC2 | ' + LanguageIdentifier.getSupportedLanguages()
+        title: GM_info.script.name + ' v' + GM_info.script.version + ' RC3 | ' + LanguageIdentifier.getSupportedLanguages()
     });
     
     var iautotagcloud = $('<iframe />', {
