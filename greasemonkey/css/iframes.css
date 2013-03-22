@@ -1,6 +1,6 @@
 #i-li-autotagcloud {
 	position: fixed; 
-	z-index: 9999;  
+	z-index: 9999999;  /* http://stackoverflow.com/questions/8565821/css-max-z-index-value */
 	margin: 0; 
 	padding: 0;
 	overflow: hidden;
@@ -32,7 +32,7 @@
 
 #i-sidebar-autotagcloud {
 	position: fixed; 
-	z-index: 9999;  
+	z-index: 9999999;  /* http://stackoverflow.com/questions/8565821/css-max-z-index-value */
 	margin: 0; 
 	padding: 0;
 	overflow: hidden;
