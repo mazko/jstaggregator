@@ -52,7 +52,7 @@ table {
 #li {
 	cursor: pointer;
 	color: rgb(181, 0, 0);
-	font-family: Monaco,"Bitstream Vera Sans Mono","Lucida Console",Terminal,monospace;
+	font-family: Helvetica, Arial, sans-serif;
 	font-size: 11px;
 	padding: 5px;
 	font-weight: bold;
