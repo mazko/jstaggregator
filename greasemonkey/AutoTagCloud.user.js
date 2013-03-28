@@ -425,7 +425,7 @@ if (document.body && isTopOrUsefulFrame()) {
     var autotagcloud = $('<div/>', {
         id: 'li',
         style: 'width: 24px; height: 24px; background-image: url(' + GM_getResourceURL('robosmile') + ')',
-        title: GM_info.script.name + ' v' + GM_info.script.version + ' RC3 | ' + LanguageIdentifier.getSupportedLanguages()
+        title: GM_info.script.name + ' v' + GM_info.script.version + ' RC4 | ' + LanguageIdentifier.getSupportedLanguages()
     });
     
     var iautotagcloud = $('<iframe />', {
@@ -433,7 +433,6 @@ if (document.body && isTopOrUsefulFrame()) {
         allowTransparency: 'true',
         frameBorder: '0',
         scrolling: 'no',
-        style: 'width: 34px; height: 34px;', // padding 2*5 + 24
         src: 'about:blank'
     }).load(function() {
         
