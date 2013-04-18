@@ -6,82 +6,82 @@
 // @version		0.1
 // @include		*
 // @copyright		2013+, Oleg Mazko
-// @icon		http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/mars.png
+// @icon		http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/mars.png
 
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/3js/jquery-1.9.1.min.js
-// @require  http://mazko.github.com/jssnowball/lib/Snowball.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/jquery-1.9.1.min.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/Snowball.js
 
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/Taggregator.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/ca.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/cs.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/da.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/de.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/en.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/es.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/fi.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/fr.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/ga.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/hu.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/hy.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/it.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/nl.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/no.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/pt.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/ro.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/ru.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/sl.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/sv.js
-// @require  http://mazko.github.com/jstaggregator/greasemonkey/js/stopaddons/tr.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/Taggregator.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/ca.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/cs.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/da.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/de.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/en.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/es.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/fi.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/fr.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/ga.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/hu.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/hy.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/it.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/nl.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/no.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/pt.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/ro.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/ru.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/sl.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/sv.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/js/stopaddons/tr.js
 
-// @require  http://mazko.github.com/jsli/lib/LanguageIdentifier.js
-// @require  http://mazko.github.com/jsli/lib/Lng/ca.js
-// @require  http://mazko.github.com/jsli/lib/Lng/cs.js
-// @require  http://mazko.github.com/jsli/lib/Lng/da.js
-// @require  http://mazko.github.com/jsli/lib/Lng/de.js
-// @require  http://mazko.github.com/jsli/lib/Lng/en.js
-// @require  http://mazko.github.com/jsli/lib/Lng/es.js
-// @require  http://mazko.github.com/jsli/lib/Lng/fi.js
-// @require  http://mazko.github.com/jsli/lib/Lng/fr.js
-// @require  http://mazko.github.com/jsli/lib/Lng/ga.js
-// @require  http://mazko.github.com/jsli/lib/Lng/hu.js
-// @require  http://mazko.github.com/jsli/lib/Lng/hy.js
-// @require  http://mazko.github.com/jsli/lib/Lng/it.js
-// @require  http://mazko.github.com/jsli/lib/Lng/nl.js
-// @require  http://mazko.github.com/jsli/lib/Lng/no.js
-// @require  http://mazko.github.com/jsli/lib/Lng/pt.js
-// @require  http://mazko.github.com/jsli/lib/Lng/ro.js
-// @require  http://mazko.github.com/jsli/lib/Lng/ru.js
-// @require  http://mazko.github.com/jsli/lib/Lng/sl.js
-// @require  http://mazko.github.com/jsli/lib/Lng/sv.js
-// @require  http://mazko.github.com/jsli/lib/Lng/tr.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/LanguageIdentifier.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/ca.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/cs.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/da.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/de.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/en.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/es.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/fi.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/fr.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/ga.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/hu.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/hy.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/it.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/nl.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/no.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/pt.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/ro.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/ru.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/sl.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/sv.js
+// @require  http://mazko.github.com/jstaggregator/greasemonkey/0.1/3js/li/Lng/tr.js
 
-// @resource ca http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/AD.png
-// @resource cs http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/CZ.png
-// @resource da http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/DK.png
-// @resource de http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/DE.png
-// @resource en http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/GB.png
-// @resource es http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/ES.png
-// @resource fi http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/FI.png
-// @resource fr http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/FR.png
-// @resource ga http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/IE.png
-// @resource hu http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/HU.png
-// @resource hy http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/AM.png
-// @resource it http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/IT.png
-// @resource nl http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/NL.png
-// @resource no http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/NO.png
-// @resource pt http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/PT.png
-// @resource ro http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/RO.png
-// @resource ru http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/RU.png
-// @resource sl http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/SI.png
-// @resource sv http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/SE.png
-// @resource tr http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/TR.png
+// @resource ca http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/AD.png
+// @resource cs http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/CZ.png
+// @resource da http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/DK.png
+// @resource de http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/DE.png
+// @resource en http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/GB.png
+// @resource es http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/ES.png
+// @resource fi http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/FI.png
+// @resource fr http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/FR.png
+// @resource ga http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/IE.png
+// @resource hu http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/HU.png
+// @resource hy http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/AM.png
+// @resource it http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/IT.png
+// @resource nl http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/NL.png
+// @resource no http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/NO.png
+// @resource pt http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/PT.png
+// @resource ro http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/RO.png
+// @resource ru http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/RU.png
+// @resource sl http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/SI.png
+// @resource sv http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/SE.png
+// @resource tr http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/TR.png
 
-// @resource unknown http://mazko.github.com/jstaggregator/greasemonkey/img/flags/64/mars.png
-// @resource robosmile http://mazko.github.com/jstaggregator/greasemonkey/img/robosmile.png
+// @resource unknown http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/flags/64/mars.png
+// @resource robosmile http://mazko.github.com/jstaggregator/greasemonkey/0.1/img/robosmile.png
 
-// @resource cssiframes http://mazko.github.com/jstaggregator/greasemonkey/css/iframes.css
-// @resource cssli http://mazko.github.com/jstaggregator/greasemonkey/css/li.css
-// @resource csssidebar http://mazko.github.com/jstaggregator/greasemonkey/css/sidebar.css
+// @resource cssiframes http://mazko.github.com/jstaggregator/greasemonkey/0.1/css/iframes.css
+// @resource cssli http://mazko.github.com/jstaggregator/greasemonkey/0.1/css/li.css
+// @resource csssidebar http://mazko.github.com/jstaggregator/greasemonkey/0.1/css/sidebar.css
 
 // ==/UserScript==
 
@@ -425,7 +425,7 @@ if (document.body && isTopOrUsefulFrame()) {
     var autotagcloud = $('<div/>', {
         id: 'li',
         style: 'width: 24px; height: 24px; background-image: url(' + GM_getResourceURL('robosmile') + ')',
-        title: GM_info.script.name + ' v' + GM_info.script.version + ' RC4 | ' + LanguageIdentifier.getSupportedLanguages()
+        title: GM_info.script.name + ' v' + GM_info.script.version + ' RC5 | ' + LanguageIdentifier.getSupportedLanguages()
     });
     
     var iautotagcloud = $('<iframe />', {
