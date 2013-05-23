@@ -425,7 +425,7 @@ if (document.body && isTopOrUsefulFrame()) {
     var autotagcloud = $('<div/>', {
         id: 'li',
         style: 'width: 24px; height: 24px; background-image: url(' + GM_getResourceURL('robosmile') + ')',
-        title: GM_info.script.name + ' v' + GM_info.script.version + ' RC5 | ' + LanguageIdentifier.getSupportedLanguages()
+        title: GM_info.script.name + ' v' + GM_info.script.version + ' RTM | ' + LanguageIdentifier.getSupportedLanguages()
     });
     
     var iautotagcloud = $('<iframe />', {
