@@ -140,17 +140,19 @@ toggleButton.on('change', ({ checked }) => {
     });
 
     worker.port.on("urim_tag_clicked", (() => {
-      var last_tag_array = [];
+      var plain_tags = [];
       return (model) => {
         try {
           console.log('tag clicked ' + JSON.stringify(model));
           var current_tags = model.tags;
-          if (last_tag_array.join() === current_tags.join()) {
-            last_tag_array = []
+          var current_tags_plain = current_tags.join();
+          var index = plain_tags.indexOf(current_tags_plain);
+          if(index != -1) {
+            //plain_tags.splice(index, 1);
+            plain_tags = []
             highlighter.highlight(false, current_tags);
-          }
-          else {
-            last_tag_array = current_tags;
+          } else {
+            plain_tags.push(current_tags_plain);
             highlighter.highlight(true, current_tags);
           }
         } finally {
