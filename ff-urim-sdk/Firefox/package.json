@@ -1,0 +1,13 @@
+{
+  "name": "urim",
+  "title": "Urim Word Cloud",
+  "id": "jid1-ST2bteW2QzXUNw",
+  "description": "Yet another Tag Cloud based on browser content",
+  "author": "Ukrop \u270C",
+  "license": "MPL 2.0",
+  "version": "0.2",
+  "permissions": {
+  	"private-browsing": true,
+  	"cross-domain-content": ["http://disqus.com/embed/comments/"]
+  }
+}
