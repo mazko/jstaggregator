@@ -5,8 +5,6 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     __slice = [].slice;
 
-  $('head').append($('<style/>').attr('type', 'text/css').html(self.options.cssiframesdata));
-
   UrimSandbox = (function() {
     function UrimSandbox() {
       var detach_cb, is_this_worker_alive, tag_clicked_cb;
@@ -43,11 +41,15 @@
       return self.port.on('urim_on_got_selection', cb);
     };
 
+    UrimSandbox.prototype.options = self.options;
+
     return UrimSandbox;
 
   })();
 
   urim_sandbox = new UrimSandbox;
+
+  $('head').append($('<style/>').attr('type', 'text/css').html(urim_sandbox.options.cssiframesdata));
 
   UrimWidget = (function() {
     function UrimWidget(settings, div_id, css) {
@@ -98,7 +100,7 @@
     FlagWidget.prototype.set_flag = function(lng) {
       return this.super_protected().div.attr({
         title: 'ISO 639: ' + lng,
-        style: "background-image: url(' " + self.options[lng] + " ');"
+        style: "background-image: url(' " + urim_sandbox.options[lng] + " ');"
       });
     };
 
@@ -112,7 +114,7 @@
     frameBorder: '0',
     scrolling: 'no',
     src: 'about:blank'
-  }, 'li', self.options.cssli);
+  }, 'li', urim_sandbox.options.cssli);
 
   SidebarWidget = (function(_super) {
     __extends(SidebarWidget, _super);
@@ -339,7 +341,7 @@
     frameBorder: '0',
     scrolling: 'no',
     src: 'about:blank'
-  }, 'tags-wrapper', self.options.csssidebar);
+  }, 'tags-wrapper', urim_sandbox.options.csssidebar);
 
   urim_sandbox.on_self_detach(function() {
     var widget, _i, _len, _ref, _results;

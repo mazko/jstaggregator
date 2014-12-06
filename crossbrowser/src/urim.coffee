@@ -1,40 +1,7 @@
 # content-script.js
 
 # TODO: https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/tabs#Attaching_stylesheets
-$('head').append $('<style/>').attr('type', 'text/css').html(self.options.cssiframesdata)
-
-# sandbox adapter
-
-class UrimSandbox
-  constructor: ->
-    # this worker harakiri mechanism
-    is_this_worker_alive = yes
-    detach_cb = null
-    self.port.on 'detach', ->
-      is_this_worker_alive = no
-      detach_cb?()
-    @on_self_detach = (cb) ->
-      detach_cb = cb
-    @is_worker_alive = (cb) ->
-      is_this_worker_alive
-
-    # process tag click routine in addon space with callback  
-    tag_clicked_cb = null
-    self.port.on 'urim_on_tag_click_processed', ->
-      tag_clicked_cb?()
-      tag_clicked_cb = null
-    @emit_tag_clicked = (model, cb) ->
-      tag_clicked_cb = cb
-      self.port.emit 'urim_tag_clicked', model
-
-  emit_get_selection: ->
-    self.port.emit 'urim_get_selection'
-
-  on_self_got_selection: (cb) ->
-    self.port.on 'urim_on_got_selection', cb
-
-
-urim_sandbox = new UrimSandbox
+$('head').append $('<style/>').attr('type', 'text/css').html(urim_sandbox.options.cssiframesdata)
 
 # UI
 
@@ -59,7 +26,7 @@ class FlagWidget extends UrimWidget
   set_flag: (lng) ->
     @super_protected().div.attr 
       title: 'ISO 639: ' + lng,
-      style: "background-image: url(' #{self.options[lng]} ');"
+      style: "background-image: url(' #{urim_sandbox.options[lng]} ');"
     
     
 widget_flag = new FlagWidget {
@@ -70,7 +37,7 @@ widget_flag = new FlagWidget {
     src: 'about:blank'
   },
   'li',
-  self.options.cssli
+  urim_sandbox.options.cssli
 
 
 class SidebarWidget extends UrimWidget
@@ -230,7 +197,7 @@ widget_sidebar = new SidebarWidget {
     src: 'about:blank'
   },
   'tags-wrapper',
-  self.options.csssidebar
+  urim_sandbox.options.csssidebar
 
 
 # cleanup DOM
