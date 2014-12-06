@@ -53,7 +53,7 @@ toggleButton.on('change', ({ checked }) => {
     console.log('new artifact for: ' + [activeTab.title, activeTab.id]);
     var worker = activeTab.attach({
       contentScriptOptions: {
-        "cssiframesdata": data.load("css/iframes.css"),
+        "cssiframes": data.load("css/iframes.css"),
         "cssli": data.load("css/li.css"),
         "csssidebar": data.load("css/sidebar.css"),
 

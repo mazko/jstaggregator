@@ -10,7 +10,7 @@ class UrimSandbox
       detach_cb?()
     @on_self_detach = (cb) ->
       detach_cb = cb
-    @is_worker_alive = (cb) ->
+    @is_worker_alive = ->
       is_this_worker_alive
 
     # process tag click routine in addon space with callback  

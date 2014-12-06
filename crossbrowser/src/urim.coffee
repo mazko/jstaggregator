@@ -1,7 +1,7 @@
 # content-script.js
 
 # TODO: https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/tabs#Attaching_stylesheets
-$('head').append $('<style/>').attr('type', 'text/css').html(urim_sandbox.options.cssiframesdata)
+$('head').append $('<style/>').attr('type', 'text/css').html(urim_sandbox.options.cssiframes)
 
 # UI
 
@@ -29,17 +29,6 @@ class FlagWidget extends UrimWidget
       style: "background-image: url(' #{urim_sandbox.options[lng]} ');"
     
     
-widget_flag = new FlagWidget {
-    id: 'i-li-autotagcloud',
-    allowTransparency: 'true',
-    frameBorder: '0',
-    scrolling: 'no',
-    src: 'about:blank'
-  },
-  'li',
-  urim_sandbox.options.cssli
-
-
 class SidebarWidget extends UrimWidget
   constructor: ->
     jquery_window = $ window
@@ -190,28 +179,32 @@ class SidebarWidget extends UrimWidget
     containerNextPage()
                     
 
-widget_sidebar = new SidebarWidget {
-    id: 'i-sidebar-autotagcloud',
-    frameBorder: '0',
-    scrolling: 'no',
-    src: 'about:blank'
-  },
-  'tags-wrapper',
-  urim_sandbox.options.csssidebar
-
-
-# cleanup DOM
-urim_sandbox.on_self_detach ->
-  widget.detach() for widget in [widget_flag, widget_sidebar,]
-
-
-###
-Auto start tag cloud build when script attached.
-Try get selection, if nothing here convert html to text
-###
-urim_sandbox.emit_get_selection()
-
+# If no selection, convert page html to text
 urim_sandbox.on_self_got_selection (plain_text) ->
+
+  widget_flag = new FlagWidget {
+      id: 'i-li-autotagcloud',
+      allowTransparency: 'true',
+      frameBorder: '0',
+      scrolling: 'no',
+      src: 'about:blank'
+    },
+    'li',
+    urim_sandbox.options.cssli
+
+  widget_sidebar = new SidebarWidget {
+      id: 'i-sidebar-autotagcloud',
+      frameBorder: '0',
+      scrolling: 'no',
+      src: 'about:blank'
+    },
+    'tags-wrapper',
+    urim_sandbox.options.csssidebar
+
+  # cleanup DOM
+  urim_sandbox.on_self_detach ->
+    widget.detach() for widget in [widget_flag, widget_sidebar,]
+
   htmlBodyToText = (body) -> 
     $.trim(body
       .clone()
@@ -228,7 +221,11 @@ urim_sandbox.on_self_got_selection (plain_text) ->
     # accessed using the [i] notation
     if window?.frames?.length?
       for frame in window.frames
-        try # Permission denied to access property 'document'
+        ###
+        FF: Permission denied to access property 'document'
+        Chrome: SecurityError ... Protocols, domains, and ports must match
+        ###
+        try 
           frameText = htmlBodyToText(
             $ frame.document
             .contents()
@@ -262,3 +259,6 @@ urim_sandbox.on_self_got_selection (plain_text) ->
       tags_array = (value for own key, value of tokensMap)
       widget_sidebar.showTags plain_text, tags_array
 
+
+# Auto start tag cloud build when script attached.
+urim_sandbox.emit_get_selection()
