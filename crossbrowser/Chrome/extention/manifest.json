@@ -24,5 +24,9 @@
   "web_accessible_resources": [
     "data/images/flags/64/*.png",
     "data/css/*.css"
-  ]
+  ],
+
+  "icons": { "16":  "data/images/icon-16.png",
+             "48":  "data/images/icon-48.png",
+             "128": "data/images/icon-128.png" }
 }
