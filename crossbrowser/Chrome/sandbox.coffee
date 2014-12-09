@@ -28,40 +28,40 @@ class UrimSandbox
           sendResponse result: 'OK'
         else console.log 'unhandled method: ', request.method
 
-    # process tag click routine with callback  
-    @emit_tag_clicked = (model, cb) ->
-      hlcolors = ['aqua', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red', 'silver', 'teal', 'yellow']
-      hlcolor = hlcolors[Math.floor(Math.random() * hlcolors.length)]
+  # process tag click routine with callback  
+  emit_tag_clicked: (model, cb) ->
+    hlcolors = ['aqua', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red', 'silver', 'teal', 'yellow']
+    hlcolor = hlcolors[Math.floor(Math.random() * hlcolors.length)]
       
-      # http://stackoverflow.com/questions/5886858/full-text-search-in-html-ignoring-tags#answer-5887719
-      doSearch = (text) ->
-        if window.find && window.getSelection
-          document.designMode = "on"
-          try
-            sel = window.getSelection()
-            sel.collapse document.body, 0
+    # http://stackoverflow.com/questions/5886858/full-text-search-in-html-ignoring-tags#answer-5887719
+    doSearch = (text) ->
+      if window.find && window.getSelection
+        document.designMode = "on"
+        try
+          sel = window.getSelection()
+          sel.collapse document.body, 0
 
-            watchdog = 1000
+          watchdog = 1000
 
-            while --watchdog and window.find text 
-              document.execCommand "HiliteColor", false, hlcolor
-              sel.collapseToEnd()
+          while --watchdog and window.find text 
+            document.execCommand "HiliteColor", false, hlcolor
+            sel.collapseToEnd()
 
-            console.log 'Too many highlights - force break.' if not watchdog
-          catch error
-            console.log error
+          console.log 'Too many highlights - force break.' if not watchdog
+        catch error
+          console.log error
 
-          document.designMode = "off"
-        else if document.body.createTextRange
-          textRange = document.body.createTextRange()
-          while textRange.findText text
-            textRange.execCommand "BackColor", false, hlcolor
-            textRange.collapse false 
+        document.designMode = "off"
+      else if document.body.createTextRange
+        textRange = document.body.createTextRange()
+        while textRange.findText text
+          textRange.execCommand "BackColor", false, hlcolor
+          textRange.collapse false 
       
-      try   
-        doSearch tag for tag in model.tags
-      finally 
-        cb?()
+    try   
+      doSearch tag for tag in model.tags
+    finally 
+      cb?()
     
   options: do ->
     loadData = (css) ->

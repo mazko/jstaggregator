@@ -23,6 +23,6 @@
 
   "web_accessible_resources": [
     "data/images/flags/64/*.png",
-    "data/*.css"
+    "data/css/*.css"
   ]
 }

@@ -42,55 +42,56 @@
           }
         };
       })(this));
-      this.emit_tag_clicked = function(model, cb) {
-        var doSearch, hlcolor, hlcolors, tag, _i, _len, _ref, _results;
-        hlcolors = ['aqua', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red', 'silver', 'teal', 'yellow'];
-        hlcolor = hlcolors[Math.floor(Math.random() * hlcolors.length)];
-        doSearch = function(text) {
-          var error, sel, textRange, watchdog, _results;
-          if (window.find && window.getSelection) {
-            document.designMode = "on";
-            try {
-              sel = window.getSelection();
-              sel.collapse(document.body, 0);
-              watchdog = 1000;
-              while (--watchdog && window.find(text)) {
-                document.execCommand("HiliteColor", false, hlcolor);
-                sel.collapseToEnd();
-              }
-              if (!watchdog) {
-                console.log('Too many highlights - force break.');
-              }
-            } catch (_error) {
-              error = _error;
-              console.log(error);
+    }
+
+    UrimSandbox.prototype.emit_tag_clicked = function(model, cb) {
+      var doSearch, hlcolor, hlcolors, tag, _i, _len, _ref, _results;
+      hlcolors = ['aqua', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red', 'silver', 'teal', 'yellow'];
+      hlcolor = hlcolors[Math.floor(Math.random() * hlcolors.length)];
+      doSearch = function(text) {
+        var error, sel, textRange, watchdog, _results;
+        if (window.find && window.getSelection) {
+          document.designMode = "on";
+          try {
+            sel = window.getSelection();
+            sel.collapse(document.body, 0);
+            watchdog = 1000;
+            while (--watchdog && window.find(text)) {
+              document.execCommand("HiliteColor", false, hlcolor);
+              sel.collapseToEnd();
             }
-            return document.designMode = "off";
-          } else if (document.body.createTextRange) {
-            textRange = document.body.createTextRange();
-            _results = [];
-            while (textRange.findText(text)) {
-              textRange.execCommand("BackColor", false, hlcolor);
-              _results.push(textRange.collapse(false));
+            if (!watchdog) {
+              console.log('Too many highlights - force break.');
             }
-            return _results;
+          } catch (_error) {
+            error = _error;
+            console.log(error);
           }
-        };
-        try {
-          _ref = model.tags;
+          return document.designMode = "off";
+        } else if (document.body.createTextRange) {
+          textRange = document.body.createTextRange();
           _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            tag = _ref[_i];
-            _results.push(doSearch(tag));
+          while (textRange.findText(text)) {
+            textRange.execCommand("BackColor", false, hlcolor);
+            _results.push(textRange.collapse(false));
           }
           return _results;
-        } finally {
-          if (typeof cb === "function") {
-            cb();
-          }
         }
       };
-    }
+      try {
+        _ref = model.tags;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          tag = _ref[_i];
+          _results.push(doSearch(tag));
+        }
+        return _results;
+      } finally {
+        if (typeof cb === "function") {
+          cb();
+        }
+      }
+    };
 
     UrimSandbox.prototype.options = (function() {
       var loadData;
