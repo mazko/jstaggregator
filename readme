@@ -1,0 +1,6 @@
+Each .pem file, which contains the private key for Chrome/Opera extention encripted again with openssl:
+
+openssl enc -aes-256-cbc -in extention.pem -out extention.pem.dat
+
+To Decript:
+openssl enc -aes-256-cbc -d -in extention.pem.dat -out extention.pem
