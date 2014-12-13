@@ -2,173 +2,20 @@
 <html>
   <head>
     <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <meta name='yandex-verification' content='40c462587143af9b' />
-    <meta name="google-site-verification" content="mVLCWRAKIg02lgq6yg2rz4rzaOkr_lW80bIRMjLRQCQ" />
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-
-    <link rel="shortcut icon" href="images/mars.png" />
-
-    <title>Welcome to AutoTagCloud</title>
+    <title>Welcome to Urim project</title>
   </head>
 
   <body>
 
-    <header>
-      <div class="container">
-        <h1>AutoTagCloud</h1>
-        <h2>UserScript to analyze web-pages content in your favorite browser. Written entirely in JavaScript and  runs exclusively on client side.</h2>
-
-        <section id="downloads">
-          <a href="greasemonkey/0.1/AutoTagCloud.user.js" class="btn">Download GM Script</a>
-          <a href="https://github.com/mazko/jstaggregator" class="btn btn-github" rel="nofollow" target="_blank"><span class="icon"></span>View on GitHub</a>
-          <a href="https://github.com/mazko/jstaggregator/issues" class="btn btn-bug" rel="nofollow" target="_blank"><span class="icon"></span>I Found a Bug!</a>
-        </section>
-      </div>
-    </header>
-
-    <div class="container">
-      <section id="main_content">
-        <h3>Show Me, Don't Tell Me!</h3>
-
-<p>Two simple steps required to start using <a href="greasemonkey/0.1/AutoTagCloud.user.js">AutoTagCloud</a>:</p>
-
-<ul>
-<li>
-Install Greasemonkey addon in your browser. 
-</li>
-</ul>
-
-<ul>
-<li>
-Install <a href="greasemonkey/0.1/AutoTagCloud.user.js">AutoTagCloud</a> UserScript by One-Click.
-</li>
-</ul>
-
-<p>Here is a bit more description about <a href="http://wiki.greasespot.net/Greasemonkey_Manual:Installing_Scripts" rel="nofollow" target="_blank">Greasemonkey</a>, <a href="http://userscripts.org/about/installing" rel="nofollow" target="_blank">UserScripts</a> and installation process.
-That's it! You'll find new <a href="greasemonkey/0.1/AutoTagCloud.user.js">AutoTagCloud</a> button injected in bottom-right corner across every page loaded - just like this: </p>
-
-<p><img style="width:100%" src="images/screenshots/FF-main-launch-button.png" alt="FF screenshot" /></p>
-<p><img style="width:100%" src="images/screenshots/Chrome-main-launch-button.png" alt="Chromium screenshot" /></p>
-
-<p>Cool :) But it's not all. As there is a regular button <span style="border: 1px solid rgb(204, 204, 204);background: none repeat scroll 0% 0% rgb(247, 247, 247);cursor: pointer;color: rgb(181, 0, 0);text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(181, 232, 83, 0.1), 0px 0px 10px rgba(181, 232, 83, 0.1);border-radius: 5px 5px 5px 5px;padding: 5px;">^_^</span>, of course we can Click at it !</p>
-
-<p><img style="width:100%" src="images/screenshots/FF-clicked-flag-progress.png" alt="FF screenshot" /></p>
-<p><img style="width:100%" src="images/screenshots/Chrome-clicked-flag-progress.png" alt="Chromium screenshot" /></p>
-
-<p>So what is happening here ?<p>
-
-
-<ul>
-<li>
-Plain text extracted from page HTML using <a href="http://jquery.com/" rel="nofollow" target="_blank">jQuery</a>.
-</li>
-</ul>
-
-<ul>
-<li>
-Text language identificated and visualised by flag.
-</li>
-</ul>
-
-<ul>
-<li>
-Text analysis process started in background.
-</li>
-</ul>
-
-<p>Background calculations process can be stopped at any time by clicking the button again. Also sometimes we don't want to analyze whole page content - in that case it is possible to do selection for interesting fragment, thus ignoring text out of selection:<p>
-
-<p><img style="width:100%" src="images/screenshots/FF-sel-clicked-flag-progress.png" alt="FF screenshot" /></p>
-<p><img style="width:100%" src="images/screenshots/Chrome-sel-clicked-flag-progress.png" alt="Chromium screenshot" /></p>
-
-<p>After analyzing process finished, additional sidebar appears showing most relatively texts fragments found in a given text, sorted by their total occurrence number. Yeah, this is very similar with wide known tag cloud. <a href="http://snowball.tartarus.org/Snowball" rel="nofollow" target="_blank">Snowball</a> stemming algorithm was used here to find similar texts fragments:<p>
-
-<p><img style="width:100%" src="images/screenshots/FF-tag-sidear.png" alt="FF screenshot" /></p>
-<p><img style="width:100%" src="images/screenshots/Chrome-tag-sidear.png" alt="Chromium screenshot" /></p>
-
-<h3>Sidebar Navigation</h3>
-
-<ul>
-<li>
-Next tags page: Ctrl + Left Mouse click on sidebar.
-</li>
-</ul>
-
-<ul>
-<li>
-First tags page: Shift + Left Mouse click on sidebar.
-</li>
-</ul>
-
-<ul>
-<li>
-Close sidebar: Left Mouse click on sidebar.
-</li>
-</ul>
-
-<ul>
-<li>
-Highlight tag in page: Left Mouse click on it.
-</li>
-</ul>
-
-<p><img style="width:100%" src="images/screenshots/FF-highlight-tag.png" alt="FF screenshot" /></p>
-<p><img style="width:100%" src="images/screenshots/Chrome-highlight-tag.png" alt="Chromium screenshot" /></p>
-
-<h3>Recipes - Good to Know</h3>
-
-Show JavaScript console / log output.
-
-<pre><code>CTRL + SHIFT + J</code></pre>
-
-Cleanup - cookies, CACHE, history etc.
-
-<pre><code>CTRL + SHIFT + DELETE</code></pre>
-
-CACHE cleanup is very useful procedure during UserScript update process, preventing any conflicts with previous installation files. Next steps are recommended for 100% guarantee update / reinstall any UserScript in any browser:
-
-<ul>
-<li>
-Remove UserScript from GreaseMonkey.
-</li>
-</ul>
-
-<ul>
-<li>
-Clear browser CACHE.
-</li>
-</ul>
-
-<ul>
-<li>
-Restart browser.
-</li>
-</ul>
-
-<ul>
-<li>
-Install UserScript new version without any conflicts.
-</li>
-</ul>
-
-<p>By default GreaseMonkey doesn't work with local files. This <a href="http://wiki.greasespot.net/Include_and_exclude_rules#Extra_schemes" rel="nofollow" target="_blank">option</a> is configurable.</p>
-
-<p>Each modern browser suspends JavaScript execution for all tabs, except visible one. But it is still possible to move a tab into a new window (usually by click and drag on it) and continue text analysis process while browsing other useful web pages at the same time.</p>
-
-<h3>Unit Tests</h3>
-
+<p>
+Urim is crossbrowser extention <a href="https://addons.mozilla.org/ru/firefox/addon/urim/" target="_blank">Firefox</a> | <a href="https://addons.opera.com/ru/extensions/details/urim/?display=ru" target="_blank">Opera</a> | <a href="https://chrome.google.com/webstore/detail/urim/dgbmgeggadefpkjalbioogkeiidmckcj" target="_blank">Chrome</a>
+</p>
+<p>
+Pure JavaScript with CoffeeScript UI and this backend:
+</p>
 <p><a href="greasemonkey/0.1/test/composite.html" target="_blank">Taggregator</a> | <a href="http://mazko.github.com/jsli/" target="_blank">Language Identifier</a> | <a href="http://mazko.github.com/jssnowball/" target="_blank">Snowball Stemmers</a></p>
 
-<h3>Contact A Human</h3>
-
 <p><a href='mailto:o.mazko%20%5Bat%5D%20mail.ru?subject=AutoTagCloud&amp;body=Hello%2C%20Oleg%20Mazko%20%21' onmouseover="var split = this.href.split('?'); split[0] = split[0].replace('%20%5Bat%5D%20','@'); this.href = split.join('?');" rel="nofollow">o.mazko [at] mail.ru</a></p>
-      </section>
-    </div>
-
     
   </body>
 </html>
