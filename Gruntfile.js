@@ -10,5 +10,6 @@ module.exports = function(grunt) {
     // Load plugin
     grunt.loadNpmTasks('grunt-contrib-qunit');
 
-	grunt.registerTask('travis', 'qunit');
+	// Task to run tests
+	grunt.registerTask('travis', ['qunit']);
 }
