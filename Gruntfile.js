@@ -7,5 +7,8 @@ module.exports = function(grunt) {
 	    }
 	});
 
+    // Load plugin
+    grunt.loadNpmTasks('grunt-contrib-qunit');
+
 	grunt.registerTask('travis', 'qunit');
 }
