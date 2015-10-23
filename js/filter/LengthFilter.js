@@ -25,7 +25,7 @@ function LengthFilter(input, newMinWordLength, newMaxWordLength) {
 
 	this.incrementToken = function() {
 		var token;
-		while (token = iIncToken()) {
+		while (!!(token = iIncToken())) {
 
 			/*
 			 * If token consists of multiple parts, newMinWordLength is still limit of

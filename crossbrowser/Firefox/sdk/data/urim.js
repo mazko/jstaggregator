@@ -356,6 +356,29 @@
     htmlBodyToText = function(body) {
       return $.trim(body.clone().find('script,noscript,style,#i-li-autotagcloud,#i-sidebar-autotagcloud').remove().end().text());
     };
+    plain_text || (plain_text = (function() {
+      var article, error, error1, location, readability, uri;
+      try {
+        location = document.location;
+        uri = {
+          spec: location.href,
+          host: location.host,
+          prePath: location.protocol + "//" + location.host,
+          scheme: location.protocol.substr(0, location.protocol.indexOf(":")),
+          pathBase: location.protocol + "//" + location.host + location.pathname.substr(0, location.pathname.lastIndexOf("/") + 1)
+        };
+        readability = new Readability(uri, document.cloneNode(true));
+        if (readability.isProbablyReaderable()) {
+          article = readability.parse();
+          if (article) {
+            return [article.title, htmlBodyToText($(article.content))].join(' ### ');
+          }
+        }
+      } catch (error1) {
+        error = error1;
+        return console.log(error);
+      }
+    })());
     plain_text || (plain_text = (function(top) {
       var frame, frameText, i, len, ref, ref1, res;
       res = top ? [top] : [];

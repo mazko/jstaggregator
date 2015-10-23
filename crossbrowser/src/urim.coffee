@@ -213,6 +213,26 @@ urim_sandbox.on_self_got_selection (plain_text) ->
       .end()
       .text())
 
+  plain_text or= do ->
+    try 
+      location = document.location;
+      uri =
+        spec: location.href,
+        host: location.host,
+        prePath: location.protocol + "//" + location.host,
+        scheme: location.protocol.substr(0, location.protocol.indexOf(":")),
+        pathBase: location.protocol + "//" + location.host + location.pathname.substr(0, location.pathname.lastIndexOf("/") + 1)
+      readability = new Readability uri, document.cloneNode true
+      if readability.isProbablyReaderable()
+        article = readability.parse()
+        if article
+          return [
+            article.title,
+            htmlBodyToText $ article.content
+          ].join ' ### '
+    catch error
+      console.log error
+
   plain_text or= do (top=htmlBodyToText $ 'body') ->
     res = if top then [top] else []
     # window.frames is a list of frame objects. 
