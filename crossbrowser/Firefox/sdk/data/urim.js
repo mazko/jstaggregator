@@ -354,7 +354,7 @@
       return results;
     });
     htmlBodyToText = function(body) {
-      return $.trim(body.clone().find('script,noscript,style,#i-li-autotagcloud,#i-sidebar-autotagcloud').remove().end().text());
+      return $.trim(body.clone().find('script,noscript,style,code,#i-li-autotagcloud,#i-sidebar-autotagcloud').remove().end().text());
     };
     plain_text || (plain_text = (function() {
       var article, error, error1, location, readability, readable, uri;

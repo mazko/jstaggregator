@@ -208,7 +208,7 @@ urim_sandbox.on_self_got_selection (plain_text) ->
   htmlBodyToText = (body) -> 
     $.trim(body
       .clone()
-      .find 'script,noscript,style,#i-li-autotagcloud,#i-sidebar-autotagcloud'
+      .find 'script,noscript,style,code,#i-li-autotagcloud,#i-sidebar-autotagcloud'
       .remove()
       .end()
       .text())
