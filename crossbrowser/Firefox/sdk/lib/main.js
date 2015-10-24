@@ -84,7 +84,7 @@ toggleButton.on('change', ({ checked }) => {
       contentScriptFile: [
         data.url("3js/jquery.js"), 
         data.url("3js/Snowball.js"),
-        data.url("3js/Readability.js"),
+        data.url("3js/Readability/Readability.js"),
 
         data.url("3js/Taggregator.js"), 
         data.url("3js/stopaddons/ca.js"), 

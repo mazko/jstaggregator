@@ -357,7 +357,7 @@
       return $.trim(body.clone().find('script,noscript,style,#i-li-autotagcloud,#i-sidebar-autotagcloud').remove().end().text());
     };
     plain_text || (plain_text = (function() {
-      var article, error, error1, location, readability, uri;
+      var article, error, error1, location, readability, readable, uri;
       try {
         location = document.location;
         uri = {
@@ -371,12 +371,14 @@
         if (readability.isProbablyReaderable()) {
           article = readability.parse();
           if (article) {
-            return [article.title, htmlBodyToText($(article.content))].join(' ### ');
+            readable = [article.title, htmlBodyToText($(article.content))].join(' ### ');
+            console.log(("Total Readable characters " + readable.length + ":\n") + (readable.length > 777 ? readable.slice(0, 334) + "\n<-...->\n" + readable.slice(-333) : readable));
+            return readable;
           }
         }
       } catch (error1) {
         error = error1;
-        return console.log(error);
+        return console.log('Readability ? -> ' + error);
       }
     })());
     plain_text || (plain_text = (function(top) {

@@ -226,12 +226,18 @@ urim_sandbox.on_self_got_selection (plain_text) ->
       if readability.isProbablyReaderable()
         article = readability.parse()
         if article
-          return [
+          readable = [
             article.title,
             htmlBodyToText $ article.content
           ].join ' ### '
+          console.log "Total Readable characters #{readable.length}:\n" + 
+            if readable.length > 777
+              "#{readable[..333]}\n<-...->\n#{readable[-333..]}"
+            else
+              readable
+          return readable
     catch error
-      console.log error
+      console.log 'Readability ? -> ' + error
 
   plain_text or= do (top=htmlBodyToText $ 'body') ->
     res = if top then [top] else []
