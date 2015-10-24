@@ -1,0 +1,3 @@
+xpi debug:
+about:config
+  extensions.o.mazko@mail.ru.sdk.console.logLevel;all
