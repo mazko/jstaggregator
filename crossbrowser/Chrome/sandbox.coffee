@@ -1,5 +1,7 @@
 # sandbox adapter for Chrome
 
+"use strict";
+
 class UrimSandbox
   constructor: ->
     get_selection_cb = null

@@ -214,15 +214,8 @@ urim_sandbox.on_self_got_selection (plain_text) ->
       .text())
 
   plain_text or= do ->
-    try 
-      location = document.location;
-      uri =
-        spec: location.href,
-        host: location.host,
-        prePath: location.protocol + "//" + location.host,
-        scheme: location.protocol.substr(0, location.protocol.indexOf(":")),
-        pathBase: location.protocol + "//" + location.host + location.pathname.substr(0, location.pathname.lastIndexOf("/") + 1)
-      readability = new Readability uri, document.cloneNode true
+    try
+      readability = new ReadabilityWrapper document
       if readability.isProbablyReaderable()
         article = readability.parse()
         if article

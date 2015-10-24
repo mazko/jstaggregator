@@ -1,5 +1,7 @@
 # sandbox adapter for FF
 
+"use strict";
+
 class UrimSandbox
   constructor: ->
     # this worker harakiri mechanism

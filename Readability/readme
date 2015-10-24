@@ -1,0 +1,3 @@
+There is native DOMParser https://developer.mozilla.org/en-US/docs/Web/API/DOMParser, but parseFromString didn't worked stable for me in FF 37 :(
+
+JSDOMParser.js works ok ws. Readability
