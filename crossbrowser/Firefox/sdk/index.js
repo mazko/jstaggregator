@@ -11,9 +11,11 @@ var toggleButton = ToggleButton({
   id: "urim-toolbar-attach-script",
   label: "Attach Urim Sidebar",
   icon: {
-    "16": data.url("images/icon-16.png"),
-    "32": data.url("images/icon-32.png"),
-    "64": data.url("images/icon-64.png")
+    "16" : data.url("images/icon-16.png"),
+    "32" : data.url("images/icon-32.png"),
+    "48" : data.url("images/icon-48.png"),
+    "64" : data.url("images/icon-64.png"),
+    "128": data.url("images/icon-128.png")
   },
   onChange: function() {
     // delete the window state for the current window,
@@ -31,7 +33,7 @@ var workers = [];
 
 function detachWorker(worker, workerArray) {
   var index = workerArray.indexOf(worker);
-  if(index != -1) {
+  if(index !== -1) {
     workerArray.splice(index, 1);
     toggleButton.state('tab', {checked: false});
     console.log('detach worker index ' + index);
