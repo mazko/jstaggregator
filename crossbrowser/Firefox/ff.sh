@@ -8,7 +8,7 @@ cp -fr ../../js/Taggregator.js sdk/data/3js && \
 cat sandbox.coffee ../src/urim.coffee | \
 coffee --compile --stdio > sdk/data/urim.js && \
 
-# ToggleButton bugs !!!
+# ToggleButton is broken: checked/unchecked state is always UNCHECKED !!!
 # https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs/ui_button_togglechecked
 # checked state is always UNCHECKED in ff jetpack sdk > 37 (cfx -> jpm)
 # Test on https://archive.mozilla.org/pub/firefox/releases/41.0.2/source/firefox-41.0.2.source.tar.xz

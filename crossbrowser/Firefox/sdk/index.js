@@ -7,7 +7,7 @@ const selection = require("sdk/selection");
 const { find } = require("sdk/util/array");
 const highlighter = require("./highlighter.js");
 
-var toggleButton = ToggleButton({
+let toggleButton = ToggleButton({
   id: "urim-toolbar-attach-script",
   label: "Attach Urim Sidebar",
   icon: {
@@ -29,10 +29,10 @@ var toggleButton = ToggleButton({
   }
 });
 
-var workers = [];
+let workers = [];
 
 function detachWorker(worker, workerArray) {
-  var index = workerArray.indexOf(worker);
+  let index = workerArray.indexOf(worker);
   if(index !== -1) {
     workerArray.splice(index, 1);
     toggleButton.state('tab', {checked: false});
@@ -47,13 +47,13 @@ function getTabWorker(tab, workerArray) {
 }
 
 toggleButton.on('change', ({ checked }) => {
-  var activeTab = tabs.activeTab;
-  var worker = getTabWorker(activeTab, workers);
+  let activeTab = tabs.activeTab;
+  let worker = getTabWorker(activeTab, workers);
   if (worker) {
     worker.destroy();
   } else {
     console.log('new artifact for: ' + [activeTab.title, activeTab.id]);
-    var worker = activeTab.attach({
+    let worker = activeTab.attach({
       contentScriptOptions: {
         "cssiframes": data.load("css/iframes.css"),
         "cssli": data.load("css/li.css"),
@@ -143,13 +143,13 @@ toggleButton.on('change', ({ checked }) => {
     });
 
     worker.port.on("urim_tag_clicked", (() => {
-      var plain_tags = [];
+      let plain_tags = [];
       return (model) => {
         try {
           console.log('tag clicked ' + JSON.stringify(model));
-          var current_tags = model.tags;
-          var current_tags_plain = current_tags.join();
-          var index = plain_tags.indexOf(current_tags_plain);
+          let current_tags = model.tags;
+          let current_tags_plain = current_tags.join();
+          let index = plain_tags.indexOf(current_tags_plain);
           if(index != -1) {
             //plain_tags.splice(index, 1);
             plain_tags = []
