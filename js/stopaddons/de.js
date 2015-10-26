@@ -2,7 +2,7 @@
  * de stopwords addon for JavaScript tag cloud builder v0.2
  * http://autotagcloud.com/
  *
- * Copyright 2013.03.09, Oleg Mazko
+ * Copyright 2015.10.26, Oleg Mazko
  * http://www.opensource.org/licenses/bsd-license.html
  */
 (function() {
