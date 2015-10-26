@@ -1,3 +1,5 @@
+"use strict";
+
 // https://developer.chrome.com/extensions/background_pages
 
 (function() {
@@ -21,7 +23,7 @@
 	        callback();   // execute outermost function
 	}
 
-	tabs_workers = [];
+	var tabs_workers = [];
 
 	function removeTabFromWorkers(tabId) {
 		var tab_index = tabs_workers.indexOf(tabId);
