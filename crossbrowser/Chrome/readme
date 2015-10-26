@@ -1,0 +1,8 @@
+The only diff between opera and chome is permissions im manifest:
+
+  "permissions": [
+    /* opera */ 
+    // "tabs", "http://*/*", "https://*/*"
+    /* chrome */ 
+    "activeTab"
+  ],
