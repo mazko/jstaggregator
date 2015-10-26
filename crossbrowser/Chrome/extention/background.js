@@ -54,6 +54,7 @@
 				    executeScripts(null, [ 
 				        { file: "data/3js/jquery.js" }, 
 				        { file: "data/3js/Snowball.js" }, 
+				        { file: "data/3js/ReadabilityWrapper.js" }, 
 
 				        { file: "data/3js/Taggregator.js" },
 				        { file: "data/3js/stopaddons/ca.js"},

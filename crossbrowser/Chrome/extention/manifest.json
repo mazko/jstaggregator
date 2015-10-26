@@ -3,9 +3,12 @@
 
   "name": "Urim",
   "description": "Yet another Tag Cloud based on browser content",
-  "version": "0.2",
+  "version": "0.3.0",
 
   "permissions": [
+    /* opera */ 
+    // "tabs", "http://*/*", "https://*/*"
+    /* chrome */ 
     "activeTab"
   ],
 
