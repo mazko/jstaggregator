@@ -1,6 +1,6 @@
 STANDALONE='ReadabilityWrapper.js'
 
-echo 'var ReadabilityWrapper = (function () {' > $STANDALONE;
+echo 'function ReadabilityWrapper(urimDocument) {' > $STANDALONE;
 sed 's!^!\t!' ./Readability/JSDOMParser.js >> $STANDALONE;
 
 cat <<EOT >> $STANDALONE;
@@ -16,8 +16,8 @@ EOT
 sed 's!^!\t!' ./Readability/Readability.js >> $STANDALONE;
 
 cat <<EOT >> $STANDALONE;
-  return function(doc) {
-    doc = doc || document;
+  return (function () {
+    var doc = urimDocument || document;
     var location = doc.location;
     var uri = {
       spec: location.href,
@@ -29,6 +29,6 @@ cat <<EOT >> $STANDALONE;
     var serializedDocument = new XMLSerializer().serializeToString(doc);
     return new Readability(uri, 
       new JSDOMParser().parse(serializedDocument));
-  };
-})();
+  })();
+}
 EOT

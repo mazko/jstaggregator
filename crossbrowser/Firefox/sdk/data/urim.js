@@ -371,7 +371,7 @@
         }
       } catch (error1) {
         error = error1;
-        return console.log('Readability ? -> ' + error);
+        return console.log("Readability ? -> " + error + ", " + error.stack);
       }
     })());
     plain_text || (plain_text = (function(top) {

@@ -1,4 +1,4 @@
-var ReadabilityWrapper = (function () {
+function ReadabilityWrapper(urimDocument) {
 	/* This Source Code Form is subject to the terms of the Mozilla Public
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this file,
 	 * You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -3008,8 +3008,8 @@ var ReadabilityWrapper = (function () {
 	             excerpt: metadata.excerpt };
 	  }
 	};
-  return function(doc) {
-    doc = doc || document;
+  return (function () {
+    var doc = urimDocument || document;
     var location = doc.location;
     var uri = {
       spec: location.href,
@@ -3021,5 +3021,5 @@ var ReadabilityWrapper = (function () {
     var serializedDocument = new XMLSerializer().serializeToString(doc);
     return new Readability(uri, 
       new JSDOMParser().parse(serializedDocument));
-  };
-})();
+  })();
+}

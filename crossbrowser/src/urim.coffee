@@ -230,7 +230,7 @@ urim_sandbox.on_self_got_selection (plain_text) ->
               readable
           return readable
     catch error
-      console.log 'Readability ? -> ' + error
+      console.log "Readability ? -> #{error}, #{error.stack}"
 
   plain_text or= do (top=htmlBodyToText $ 'body') ->
     res = if top then [top] else []
