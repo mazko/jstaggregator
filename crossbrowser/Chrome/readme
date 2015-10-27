@@ -1,4 +1,15 @@
-The only diff between opera and chome is permissions im manifest:
+###################################################################
+
+Each .pem file, which contains the private key for Chrome/Opera extention encripted again with openssl:
+
+openssl enc -aes-256-cbc -in extention.pem -out extention.pem.dat
+
+To Decript:
+openssl enc -aes-256-cbc -d -in extention.pem.dat -out extention.pem
+
+###################################################################
+
+The only diff between opera before 33.0.1990.43 and chome WAS permissions in manifest:
 
   "permissions": [
     /* opera */ 
@@ -6,3 +17,5 @@ The only diff between opera and chome is permissions im manifest:
     /* chrome */ 
     "activeTab"
   ],
+
+###################################################################
