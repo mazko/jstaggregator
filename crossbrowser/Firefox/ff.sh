@@ -4,6 +4,7 @@ rm -rf sdk/data/* && \
 cp -fr ../src/3js sdk/data/ && \
 cp -fr ../src/css sdk/data/ && \
 cp -fr ../src/images sdk/data/ && \
+cp -fr ../../js/stopaddons sdk/data/3js && \
 cp -f  ../../js/Taggregator.js sdk/data/3js && \
 cp -f  ../../Readability/ReadabilityWrapper.js sdk/data/3js && \
 cat sandbox.coffee ../src/urim.coffee | \
