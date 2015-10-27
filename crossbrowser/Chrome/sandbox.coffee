@@ -3,7 +3,55 @@
 "use strict";
 
 class UrimSandbox
-  constructor: ->
+  make_options = () ->
+    ca: chrome.extension.getURL('data/images/flags/64/AD.png'),
+    cs: chrome.extension.getURL('data/images/flags/64/CZ.png'),
+    da: chrome.extension.getURL('data/images/flags/64/DK.png'),
+    de: chrome.extension.getURL('data/images/flags/64/DE.png'),
+    en: chrome.extension.getURL('data/images/flags/64/GB.png'),
+    es: chrome.extension.getURL('data/images/flags/64/ES.png'),
+    fi: chrome.extension.getURL('data/images/flags/64/FI.png'),
+    fr: chrome.extension.getURL('data/images/flags/64/FR.png'),
+    ga: chrome.extension.getURL('data/images/flags/64/IE.png'),
+    hu: chrome.extension.getURL('data/images/flags/64/HU.png'),
+    hy: chrome.extension.getURL('data/images/flags/64/AM.png'),
+    it: chrome.extension.getURL('data/images/flags/64/IT.png'),
+    nl: chrome.extension.getURL('data/images/flags/64/NL.png'),
+    no: chrome.extension.getURL('data/images/flags/64/NO.png'),
+    pt: chrome.extension.getURL('data/images/flags/64/PT.png'),
+    ro: chrome.extension.getURL('data/images/flags/64/RO.png'),
+    ru: chrome.extension.getURL('data/images/flags/64/UA.png'),
+    sl: chrome.extension.getURL('data/images/flags/64/SI.png'),
+    sv: chrome.extension.getURL('data/images/flags/64/SE.png'),
+    tr: chrome.extension.getURL('data/images/flags/64/TR.png'),
+
+  loadData = (url) ->
+    # Create new promise with the Promise() constructor;
+    # This has as its argument a function
+    # with two parameters, resolve and reject
+    new Promise (resolve, reject) ->
+      # Standard XHR to load an image
+      request = new XMLHttpRequest()
+      request.open 'GET', chrome.extension.getURL url
+      # When the request loads, check whether it was successful
+      request.onload = ->
+        if request.status is 200
+          # If successful, resolve the promise by passing back the request response
+          resolve request.responseText
+        else
+          # If it fails, reject the promise with a error message
+          reject Error 'Resourse didn\'t load successfully; error code:' + request.statusText
+
+      request.onerror = ->
+        # Also deal with the case when the entire request fails to begin with
+        # This is probably a network error, so reject the promise with an appropriate message
+        reject Error 'There was a network error.'
+      # Send the request
+      request.send()
+
+  # Constructor
+
+  constructor:(onload) ->
     get_selection_cb = null
     @emit_get_selection = ->
       get_selection_cb? window?.getSelection?().toString?()
@@ -29,6 +77,24 @@ class UrimSandbox
           @emit_get_selection()
           sendResponse result: 'OK'
         else console.log 'unhandled method: ', request.method
+
+    @options = make_options()
+
+    promises = Promise.all [
+      loadData('data/css/iframes.css'),
+      loadData('data/css/li.css'),
+      loadData('data/css/sidebar.css'),
+    ]
+
+    promises.then ( values ) =>
+      opts = @options
+      [opts.cssiframes, opts.cssli, opts.csssidebar] = values
+      onload?()
+
+    promises.catch ( exeption ) -> 
+      console.warn exeption
+
+  # Constructor end
 
   # process tag click routine with callback  
   emit_tag_clicked: (model, cb) ->
@@ -65,38 +131,5 @@ class UrimSandbox
     finally 
       cb?()
     
-  options: do ->
-    loadData = (css) ->
-      req = new XMLHttpRequest()
-      # `false` makes the request synchronous
-      req.open 'GET', chrome.extension.getURL(css), false
-      req.send()
-      req.responseText
-    
-    cssiframes: loadData('data/css/iframes.css'),
-    cssli: loadData('data/css/li.css'),
-    csssidebar: loadData('data/css/sidebar.css'),
-    
-    ca: chrome.extension.getURL('data/images/flags/64/AD.png'),
-    cs: chrome.extension.getURL('data/images/flags/64/CZ.png'),
-    da: chrome.extension.getURL('data/images/flags/64/DK.png'),
-    de: chrome.extension.getURL('data/images/flags/64/DE.png'),
-    en: chrome.extension.getURL('data/images/flags/64/GB.png'),
-    es: chrome.extension.getURL('data/images/flags/64/ES.png'),
-    fi: chrome.extension.getURL('data/images/flags/64/FI.png'),
-    fr: chrome.extension.getURL('data/images/flags/64/FR.png'),
-    ga: chrome.extension.getURL('data/images/flags/64/IE.png'),
-    hu: chrome.extension.getURL('data/images/flags/64/HU.png'),
-    hy: chrome.extension.getURL('data/images/flags/64/AM.png'),
-    it: chrome.extension.getURL('data/images/flags/64/IT.png'),
-    nl: chrome.extension.getURL('data/images/flags/64/NL.png'),
-    no: chrome.extension.getURL('data/images/flags/64/NO.png'),
-    pt: chrome.extension.getURL('data/images/flags/64/PT.png'),
-    ro: chrome.extension.getURL('data/images/flags/64/RO.png'),
-    ru: chrome.extension.getURL('data/images/flags/64/UA.png'),
-    sl: chrome.extension.getURL('data/images/flags/64/SI.png'),
-    sv: chrome.extension.getURL('data/images/flags/64/SE.png'),
-    tr: chrome.extension.getURL('data/images/flags/64/TR.png'),
 
-
-urim_sandbox = new UrimSandbox
+urim_sandbox = new UrimSandbox ->
