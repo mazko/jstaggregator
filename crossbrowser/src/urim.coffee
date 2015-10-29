@@ -221,6 +221,7 @@ urim_sandbox.on_self_got_selection (plain_text) ->
         if article
           readable = [
             article.title,
+            article.byline,
             htmlBodyToText $ article.content
           ].join ' ### '
           console.log "Total Readable characters #{readable.length}:\n" + 
