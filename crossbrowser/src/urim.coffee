@@ -182,29 +182,6 @@ class SidebarWidget extends UrimWidget
 # If no selection, convert page html to text
 urim_sandbox.on_self_got_selection (plain_text) ->
 
-  widget_flag = new FlagWidget {
-      id: 'i-li-autotagcloud',
-      allowTransparency: 'true',
-      frameBorder: '0',
-      scrolling: 'no',
-      src: 'about:blank'
-    },
-    'li',
-    urim_sandbox.options.cssli
-
-  widget_sidebar = new SidebarWidget {
-      id: 'i-sidebar-autotagcloud',
-      frameBorder: '0',
-      scrolling: 'no',
-      src: 'about:blank'
-    },
-    'tags-wrapper',
-    urim_sandbox.options.csssidebar
-
-  # cleanup DOM
-  urim_sandbox.on_self_detach ->
-    widget.detach() for widget in [widget_flag, widget_sidebar,]
-
   htmlBodyToText = (body) -> 
     $.trim(body
       .clone()
@@ -223,7 +200,7 @@ urim_sandbox.on_self_got_selection (plain_text) ->
             article.title,
             article.byline,
             htmlBodyToText $ article.content
-          ].join ' ### '
+          ].join()
           console.log "Total Readable characters #{readable.length}:\n" + 
             if readable.length > 777
               "#{readable[..333]}\n<-...->\n#{readable[-333..]}"
@@ -254,6 +231,29 @@ urim_sandbox.on_self_got_selection (plain_text) ->
     res.join() 
 
   lng = LanguageIdentifier.identify(plain_text).language
+
+  widget_flag = new FlagWidget {
+      id: 'i-li-autotagcloud',
+      allowTransparency: 'true',
+      frameBorder: '0',
+      scrolling: 'no',
+      src: 'about:blank'
+    },
+    'li',
+    urim_sandbox.options.cssli
+
+  widget_sidebar = new SidebarWidget {
+      id: 'i-sidebar-autotagcloud',
+      frameBorder: '0',
+      scrolling: 'no',
+      src: 'about:blank'
+    },
+    'tags-wrapper',
+    urim_sandbox.options.csssidebar
+
+  # cleanup DOM
+  urim_sandbox.on_self_detach ->
+    widget.detach() for widget in [widget_flag, widget_sidebar,]
 
   tokenStream = Taggregator.create plain_text, lng, (pos, total) -> 
     widget_flag.set_text 100*pos//total + ' %'
