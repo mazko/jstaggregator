@@ -50,7 +50,7 @@
 
   urim_sandbox = new UrimSandbox;
 
-  $('head').append($('<style/>').attr('type', 'text/css').html(urim_sandbox.options.cssiframes));
+  $('head').append($('<style/>').attr('type', 'text/css').text(urim_sandbox.options.cssiframes));
 
   UrimWidget = (function() {
     function UrimWidget(settings, div_id, css) {
@@ -59,7 +59,7 @@
         id: div_id
       });
       iframe = $('<iframe />', settings).load(function() {
-        $(this).contents().find('head').append($('<style/>').attr('type', 'text/css').html(css));
+        $(this).contents().find('head').append($('<style/>').attr('type', 'text/css').text(css));
         return $(this).contents().find('body').append(div);
       }).appendTo((function(to) {
         if (to.length) {
@@ -274,7 +274,7 @@
             });
             $('<a/>').attr({
               href: "#" + (keys.join('#'))
-            }).html((getPrettyEntryText(value.offsetMatrix[0])) + " <span>" + value.offsetMatrix.length + "</span>").appendTo(last_appended);
+            }).text((getPrettyEntryText(value.offsetMatrix[0])) + " ").append($('<span>').text("" + value.offsetMatrix.length)).appendTo(last_appended);
             if (tag_box.height() > container.height()) {
               console.log("Last append overflowed, step back " + (tag_box.height()) + " t : s " + (container.height()));
               last_appended.remove();
@@ -331,29 +331,6 @@
 
   urim_sandbox.on_self_got_selection(function(plain_text) {
     var async, htmlBodyToText, lng, tokenStream, tokensMap, widget_flag, widget_sidebar;
-    widget_flag = new FlagWidget({
-      id: 'i-li-autotagcloud',
-      allowTransparency: 'true',
-      frameBorder: '0',
-      scrolling: 'no',
-      src: 'about:blank'
-    }, 'li', urim_sandbox.options.cssli);
-    widget_sidebar = new SidebarWidget({
-      id: 'i-sidebar-autotagcloud',
-      frameBorder: '0',
-      scrolling: 'no',
-      src: 'about:blank'
-    }, 'tags-wrapper', urim_sandbox.options.csssidebar);
-    urim_sandbox.on_self_detach(function() {
-      var i, len, ref, results, widget;
-      ref = [widget_flag, widget_sidebar];
-      results = [];
-      for (i = 0, len = ref.length; i < len; i++) {
-        widget = ref[i];
-        results.push(widget.detach());
-      }
-      return results;
-    });
     htmlBodyToText = function(body) {
       return $.trim(body.clone().find('script,noscript,style,code,#i-li-autotagcloud,#i-sidebar-autotagcloud').remove().end().text());
     };
@@ -364,7 +341,7 @@
         if (readability.isProbablyReaderable()) {
           article = readability.parse();
           if (article) {
-            readable = [article.title, htmlBodyToText($(article.content))].join(' ### ');
+            readable = [article.title, article.byline, htmlBodyToText($(article.content))].join();
             console.log(("Total Readable characters " + readable.length + ":\n") + (readable.length > 777 ? readable.slice(0, 334) + "\n<-...->\n" + readable.slice(-333) : readable));
             return readable;
           }
@@ -397,6 +374,29 @@
       return res.join();
     })(htmlBodyToText($('body'))));
     lng = LanguageIdentifier.identify(plain_text).language;
+    widget_flag = new FlagWidget({
+      id: 'i-li-autotagcloud',
+      allowTransparency: 'true',
+      frameBorder: '0',
+      scrolling: 'no',
+      src: 'about:blank'
+    }, 'li', urim_sandbox.options.cssli);
+    widget_sidebar = new SidebarWidget({
+      id: 'i-sidebar-autotagcloud',
+      frameBorder: '0',
+      scrolling: 'no',
+      src: 'about:blank'
+    }, 'tags-wrapper', urim_sandbox.options.csssidebar);
+    urim_sandbox.on_self_detach(function() {
+      var i, len, ref, results, widget;
+      ref = [widget_flag, widget_sidebar];
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        widget = ref[i];
+        results.push(widget.detach());
+      }
+      return results;
+    });
     tokenStream = Taggregator.create(plain_text, lng, function(pos, total) {
       return widget_flag.set_text(Math.floor(100 * pos / total) + ' %');
     });

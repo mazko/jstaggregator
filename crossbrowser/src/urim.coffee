@@ -1,7 +1,7 @@
 # content-script.js
 
 # TODO: https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/tabs#Attaching_stylesheets
-$('head').append $('<style/>').attr('type', 'text/css').html(urim_sandbox.options.cssiframes)
+$('head').append $('<style/>').attr('type', 'text/css').text(urim_sandbox.options.cssiframes)
 
 # UI
 
@@ -10,7 +10,7 @@ class UrimWidget
     div = $ '<div/>', id: div_id
     iframe = $ '<iframe />', settings
       .load ->
-        $(@).contents().find('head').append $('<style/>').attr('type', 'text/css').html(css)                
+        $(@).contents().find('head').append $('<style/>').attr('type', 'text/css').text(css)                
         $(@).contents().find('body').append div
       .appendTo do (to=$ 'body') -> 
         if to.length then to else document.documentElement
@@ -133,7 +133,9 @@ class SidebarWidget extends UrimWidget
               e.stopPropagation()
           $ '<a/>'
             .attr href: "##{keys.join '#'}"
-            .html "#{getPrettyEntryText value.offsetMatrix[0]} <span>#{value.offsetMatrix.length}</span>"
+            .text "#{getPrettyEntryText value.offsetMatrix[0]} "
+            .append ($ '<span>'
+              .text "#{value.offsetMatrix.length}")
             .appendTo last_appended
 
           if tag_box.height() > container.height() 
