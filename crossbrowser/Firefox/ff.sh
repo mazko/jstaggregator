@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 rm -rf sdk/data/* && \
 cp -fr ../src/3js sdk/data/ && \
@@ -19,12 +19,18 @@ coffee --compile --stdio > sdk/data/urim.js && \
 # jpm -b /usr/bin/firefox test => 6 of 6 tests passed. All tests passed!
 # jpm -b /usr/bin/firefox run << UI state is always UNCHECKED
 
-# To make extention build working correctry use old sdk versions:
-# https://ftp.mozilla.org/pub/firefox/releases/37.0.2/linux-x86_64/en-US/firefox-37.0.2.tar.bz2
-# https://github.com/mozilla/addon-sdk/releases/tag/1.17
-# and replace jpm <-> cfx, local ff-version below
+# relaese jpm xpi works better but sometimes ToggleButton still fail
 
-cd sdk
-cfx run --binary "$HOME/firefox-37/firefox" \
---binary-args 'http://localhost:8080/'
-cd -
+pushd sdk
+
+case "$1" in
+  "xpi")
+    jpm xpi
+    ;;
+  *)
+    jpm run --binary "`which firefox`" \
+      --binary-args 'http://localhost:8080/'
+    ;;
+esac
+
+popd
