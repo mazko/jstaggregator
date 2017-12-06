@@ -254,6 +254,7 @@ urim_sandbox.on_self_got_selection (plain_text) ->
     urim_sandbox.options.csssidebar
 
   # cleanup DOM
+  # calling urim_sandbox.on_self_detach (cb) 
   urim_sandbox.on_self_detach ->
     widget.detach() for widget in [widget_flag, widget_sidebar,]
 

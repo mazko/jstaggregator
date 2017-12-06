@@ -6,7 +6,7 @@ sed -i '/function FlexTokenizer(input, progress) {/q' $STANDALONE;
 echo '' >> $STANDALONE;
 sed 's!^!\t!' js/lucene-tokenizers.babel.js >> $STANDALONE;
 echo '' >> $STANDALONE;
-echo 'var impl = new this.luceneTokenizers.UAX29URLEmailTokenizer();' | sed 's!^!\t!' >> $STANDALONE;
+echo 'var impl = new this.luceneTokenizers.StandardTokenizer();' | sed 's!^!\t!' >> $STANDALONE;
 echo '' >> $STANDALONE;
 echo 'impl.setReader(new this.luceneTokenizers.StringReader(input));' | sed 's!^!\t!' >> $STANDALONE;
 echo '' >> $STANDALONE;

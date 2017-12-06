@@ -1889,7 +1889,7 @@ var Taggregator = (function() {
 		});
 		
 	
-		var impl = new this.luceneTokenizers.UAX29URLEmailTokenizer();
+		var impl = new this.luceneTokenizers.StandardTokenizer();
 	
 		impl.setReader(new this.luceneTokenizers.StringReader(input));
 	

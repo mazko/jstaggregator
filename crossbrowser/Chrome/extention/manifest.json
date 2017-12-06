@@ -3,7 +3,7 @@
 
   "name": "Urim",
   "description": "Yet another Tag Cloud based on browser content",
-  "version": "0.3.4",
+  "version": "0.4.0",
 
   "permissions": [
     "activeTab"
@@ -16,8 +16,8 @@
   "browser_action": {
     "default_title": "Attach Urim Sidebar", 
     "default_icon": { 
-      "19": "data/images/icon-16.png",
-      "38": "data/images/icon-32.png"
+      "16": "data/images/icon-16.png",
+      "32": "data/images/icon-32.png"
     }
   },
 
@@ -27,6 +27,8 @@
   ],
 
   "icons": { "16":  "data/images/icon-16.png",
+             "32":  "data/images/icon-32.png",
              "48":  "data/images/icon-48.png",
+             "64":  "data/images/icon-64.png",
              "128": "data/images/icon-128.png" }
 }
